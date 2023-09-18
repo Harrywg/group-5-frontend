@@ -12,4 +12,10 @@ export default StyleSheet.create({
   text: {
     color: "white",
   },
+  profile: {
+    ...StyleSheet.absoluteFillObject,
+    alignSelf: "flex-end",
+    marginTop: -5,
+    position: "absolute",
+  },
 });
