@@ -1,55 +1,63 @@
 import { StatusBar } from "expo-status-bar";
 import { Text, View, Button } from "react-native";
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import {
+  NavigationContainer,
+  useNavigation,
+  createNavigationContainerRef,
+} from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "./components/Login";
 import HomePage from "./components/HomePage";
-import Places from "./components/Places";
 import Profile from "./components/Profile";
 import LeaderBoard from "./components/LeaderBoard";
 import SinglePlace from "./components/SinglePlace";
 import mainStyles from "./styles/mainStyles";
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import React from "react";
+import { useState, useEffect } from "react";
 
-// Remember to install with expo command instead of npm i
 
-const Stack = createNativeStackNavigator();
+export const navigationRef = createNavigationContainerRef();
+
+
+const HomeStack = createNativeStackNavigator();
+function HomeStackScreen() {
+  if (navigationRef.isReady()) {
+  return (
+    <HomeStack.Navigator>
+      <HomeStack.Screen
+        style={mainStyles}
+        name="HomePage"
+        options={{ headerShown: false }}
+        component={HomePage}
+      />
+      <HomeStack.Screen
+        style={mainStyles}
+        name="SinglePlace"
+        options={{ headerShown: false }}
+        component={SinglePlace}
+      />
+    </HomeStack.Navigator>
+  );
+}
+}
+
+const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Login"
-          options={{ headerShown: false }}
-          component={Login}
-        />
-        <Stack.Screen
-        
-          name="HomePage"
-          component={HomePage}
-        />
-        {/* <Stack.Screen
-          name="Places"
-          options={{ headerShown: false }}
-          component={Places}
-        />
-        <Stack.Screen
-          name="LeaderBoard"
-          options={{ headerShown: false }}
-          component={LeaderBoard}
-        />
-        <Stack.Screen
-          name="Profile"
-          options={{ headerShown: false }}
-          component={Profile}
-        />
-        <Stack.Screen
-          name="SinglePlace"
-          options={{ headerShown: false }}
-          component={SinglePlace}
-        /> */}
-      </Stack.Navigator>
+      {isAuthenticated ? (
+        <Tab.Navigator>
+          <Tab.Screen name="Home" component={HomeStackScreen} />
+          <Tab.Screen name="LeaderBoard" component={LeaderBoard} />
+          <Tab.Screen name="Profile" component={Profile} />
+        </Tab.Navigator>
+      ) : (
+        <Login setIsAuthenticated={setIsAuthenticated} />
+      )}
     </NavigationContainer>
   );
 }

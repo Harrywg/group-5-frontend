@@ -7,11 +7,6 @@ export default function SinglePlace({ navigation }) {
     <View style={mainStyles.container}>
       <Text style={mainStyles.text}>Single Place</Text>
       <Button title="Home" onPress={() => navigation.navigate("HomePage")} />
-      <Button
-        style={mainStyles.profile}
-        title="Profile"
-        onPress={() => navigation.navigate("Profile")}
-      />
-    </View>
+       </View>
   );
 }

@@ -1,13 +1,31 @@
 import { useNavigation } from "@react-navigation/native";
-import { Text, View, Button, StyleSheet, KeyboardAvoidingView, TextInput, TouchableOpacity } from "react-native";
+import {
+  Text,
+  View,
+  Button,
+  StyleSheet,
+  KeyboardAvoidingView,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
 import { useState, useEffect } from "react";
 import mainStyles from "../styles/mainStyles";
 import HomePage from "./HomePage";
 
-export default function Login({ navigation }) {
+export default function Login({ isAuthenticated, setIsAuthenticated }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigation = useNavigation();
+
+  const handleLogin = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      setIsAuthenticated(true);
+      navigation.navigate("HomePage");
+    }, 2000);
+  };
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
@@ -27,8 +45,12 @@ export default function Login({ navigation }) {
         />
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity onPress={() => navigation.navigate("HomePage")} style={styles.button}>
-          <Text style={styles.buttonText}>Login</Text>
+        <TouchableOpacity onPress={handleLogin} style={styles.button}>
+          {loading ? (
+            <Text style={styles.buttonText}>Logging In...</Text>
+          ) : (
+            <Text style={styles.buttonText}>Login</Text>
+          )}
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => navigation.navigate("HomePage")}
