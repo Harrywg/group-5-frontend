@@ -6,11 +6,7 @@ export default function HomePage(props) {
   console.log(route);
   return (
     <View style={mainStyles.container}>
-      <Text>1234</Text>
+      <Text style={mainStyles.text}>1234</Text>
     </View>
   );
 }
-
-// Routing
-
-// Learning about the react native components
