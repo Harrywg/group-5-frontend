@@ -22,51 +22,37 @@ export const navigationRef = createNavigationContainerRef();
 
 const Stack = createNativeStackNavigator();
 
-// function HomeStackScreen() {
-//   return (
-//     <View>
-//       <HomeStack.Navigator>
-//         <HomeStack.Screen
-//           style={mainStyles}
-//           name="HomePage"
-//           options={{ headerShown: true }}
-//           component={HomePage}
-//         />
-//         <HomeStack.Screen
-//           style={mainStyles}
-//           name="SinglePlace"
-//           options={{ headerShown: false }}
-//           component={SinglePlace}
-//         />
-//       </HomeStack.Navigator>
-//     </View>
-//   );
-// }
-
-function root() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
+function Home() {
   return (
-    <NavigationContainer>
-      {isAuthenticated ? (
-        <Tab.Navigator>
-          <Tab.Screen name="Home" component={HomePage} />
-          <Tab.Screen name="LeaderBoard" component={LeaderBoard} />
-          <Tab.Screen name="Profile" component={Profile} />
-        </Tab.Navigator>
-      ) : (
-        <Login setIsAuthenticated={setIsAuthenticated} />
-      )}
-    </NavigationContainer>
+    <Tab.Navigator>
+      <Tab.Screen name="Home" component={HomePage} />
+      <Tab.Screen name="LeaderBoard" component={LeaderBoard} />
+      <Tab.Screen name="Profile" component={Profile} />
+    </Tab.Navigator>
   );
 }
 
 const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName={isAuthenticated ? "Home" : "Login"}>
+        {isAuthenticated ? (
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{ headerShown: false }}
+          />
+        ) : (
+          <Stack.Screen
+            name="Login"
+            component={() => <Login setIsAuthenticated={setIsAuthenticated} />}
+            options={{ headerShown: false }}
+          />
+        )}
         <Stack.Screen
           style={mainStyles}
           name="SinglePlace"

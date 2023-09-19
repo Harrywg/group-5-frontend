@@ -20,9 +20,10 @@ export default function Login({ isAuthenticated, setIsAuthenticated }) {
 
   const handleLogin = () => {
     setLoading(true);
-      setLoading(false);
-      setIsAuthenticated(true);
-      navigation.navigate("HomePage");
+    setLoading(false);
+    setIsAuthenticated(true);
+    //Error for navigation here
+    navigation.navigate("Home");
   };
 
   return (
