@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import SinglePlace from "./SinglePlace";
 import SwipeUpDown from "react-native-swipe-up-down";
 
+
 export default function HomePage() {
   const navigation = useNavigation();
 
@@ -16,9 +17,9 @@ export default function HomePage() {
     <View style={mainStyles.container}>
       <Text style={mainStyles.text}>HomePage</Text>
       <TouchableOpacity title="Go to SinglePlace" onPress={goToSinglePlace}>
-        <Text>Single Place</Text>
+        <Text style={mainStyles.text}>Single Place</Text>
       </TouchableOpacity>
-      <SwipeUpDown
+      {/* <SwipeUpDown
         itemMini={(show) => <ItemFull show={show} />}
         itemFull={(hide) => <ItemFull hide={hide} />}
         onShowMini={() => console.log("mini")}
@@ -29,7 +30,7 @@ export default function HomePage() {
         iconColor="yellow"
         iconSize={30}
         style={{ backgroundColor: "#000" }} // style for swipe
-      />
+      /> */}
     </View>
   );
 }
