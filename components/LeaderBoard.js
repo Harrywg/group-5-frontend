@@ -6,7 +6,6 @@ export default function LeaderBoard({navigation}) {
   return (
     <View style={mainStyles.container}>
       <Text style={mainStyles.text}>LeaderBoard</Text>
-      <Button title="Home" onPress={() => navigation.navigate("HomePage")} />
          </View>
   );
 }

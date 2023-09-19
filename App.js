@@ -15,49 +15,65 @@ import mainStyles from "./styles/mainStyles";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import React from "react";
 import { useState, useEffect } from "react";
-
+import Ionicons from "@expo/vector-icons/Ionicons";
+import Feather from "react-native-vector-icons/Feather";
 
 export const navigationRef = createNavigationContainerRef();
 
+const Stack = createNativeStackNavigator();
 
-const HomeStack = createNativeStackNavigator();
-function HomeStackScreen() {
-  if (navigationRef.isReady()) {
-  return (
-    <HomeStack.Navigator>
-      <HomeStack.Screen
-        style={mainStyles}
-        name="HomePage"
-        options={{ headerShown: false }}
-        component={HomePage}
-      />
-      <HomeStack.Screen
-        style={mainStyles}
-        name="SinglePlace"
-        options={{ headerShown: false }}
-        component={SinglePlace}
-      />
-    </HomeStack.Navigator>
-  );
-}
-}
+// function HomeStackScreen() {
+//   return (
+//     <View>
+//       <HomeStack.Navigator>
+//         <HomeStack.Screen
+//           style={mainStyles}
+//           name="HomePage"
+//           options={{ headerShown: true }}
+//           component={HomePage}
+//         />
+//         <HomeStack.Screen
+//           style={mainStyles}
+//           name="SinglePlace"
+//           options={{ headerShown: false }}
+//           component={SinglePlace}
+//         />
+//       </HomeStack.Navigator>
+//     </View>
+//   );
+// }
 
-const Tab = createMaterialBottomTabNavigator();
-
-export default function App() {
+function root() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   return (
     <NavigationContainer>
       {isAuthenticated ? (
         <Tab.Navigator>
-          <Tab.Screen name="Home" component={HomeStackScreen} />
+          <Tab.Screen name="Home" component={HomePage} />
           <Tab.Screen name="LeaderBoard" component={LeaderBoard} />
           <Tab.Screen name="Profile" component={Profile} />
         </Tab.Navigator>
       ) : (
         <Login setIsAuthenticated={setIsAuthenticated} />
       )}
+    </NavigationContainer>
+  );
+}
+
+const Tab = createMaterialBottomTabNavigator();
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          style={mainStyles}
+          name="SinglePlace"
+          options={{ headerShown: false }}
+          component={SinglePlace}
+        />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
