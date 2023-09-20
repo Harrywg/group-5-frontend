@@ -6,6 +6,9 @@ import BottomSheet, {
   useBottomSheetSpringConfigs,
   BottomSheetScrollView,
 } from "@gorhom/bottom-sheet";
+import SinglePlace from "./SinglePlace";
+import SwipeUpDown from "react-native-swipe-up-down";
+import Map from "./Map";
 
 export default function HomePage() {
   const bottomSheetRef = useRef(null);
@@ -43,6 +46,7 @@ export default function HomePage() {
 
   return (
     <View style={mainStyles.container}>
+      <Map />
       <Text style={mainStyles.text}>HomePage</Text>
       <TouchableOpacity title="Go to SinglePlace" onPress={goToSinglePlace}>
         <Text style={mainStyles.text}>Single Place</Text>
@@ -77,7 +81,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     shadowColor: "#000",
-     },
+  },
   itemContainer: {
     padding: 7,
     margin: 2,
