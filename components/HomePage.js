@@ -4,7 +4,7 @@ import mainStyles from "../styles/mainStyles";
 import { useNavigation } from "@react-navigation/native";
 import SinglePlace from "./SinglePlace";
 import SwipeUpDown from "react-native-swipe-up-down";
-
+import Map from "./Map";
 
 export default function HomePage() {
   const navigation = useNavigation();
@@ -15,6 +15,7 @@ export default function HomePage() {
 
   return (
     <View style={mainStyles.container}>
+      <Map />
       <Text style={mainStyles.text}>HomePage</Text>
       <TouchableOpacity title="Go to SinglePlace" onPress={goToSinglePlace}>
         <Text style={mainStyles.text}>Single Place</Text>

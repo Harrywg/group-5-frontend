@@ -8,3 +8,7 @@ export const getUsers = () => {
   console.log("invoke");
   return api.get("/users").then(({ data }) => data);
 };
+
+export const getPlaces = () => {
+  return api.get("/places").then(({ data }) => data);
+};
