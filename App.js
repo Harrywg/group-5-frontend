@@ -14,6 +14,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
+
 function MainPages() {
   return (
     <Tab.Navigator>

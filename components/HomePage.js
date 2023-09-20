@@ -5,7 +5,7 @@ import React, {
   useState,
   useEffect,
 } from "react";
-import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
 import mainStyles from "../styles/mainStyles";
 import { useNavigation } from "@react-navigation/native";
 import BottomSheet, {
@@ -20,7 +20,6 @@ export default function HomePage() {
   const bottomSheetRef = useRef(null);
   const snapPoints = useMemo(() => ["5%", "50%"], []);
   const navigation = useNavigation();
-
 
   useEffect(() => {
     const fetchPlaces = async () => {
@@ -72,6 +71,12 @@ export default function HomePage() {
               onPress={() => goToSinglePlace(place)}
             >
               <Text>{place.placeName}</Text>
+              {place.imgURL ? (
+                <Image source={{ uri: place.imgURL }} style={styles.image} />
+              ) : (
+                <Text>No Image Available</Text>
+              )}
+              <Text>{place.createdAt}</Text>
             </TouchableOpacity>
           ))}
         </BottomSheetScrollView>
