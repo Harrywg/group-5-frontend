@@ -1,4 +1,10 @@
-import React, { useCallback, useMemo, useRef } from "react";
+import React, {
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+  useEffect,
+} from "react";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import mainStyles from "../styles/mainStyles";
 import { useNavigation } from "@react-navigation/native";
@@ -6,34 +12,34 @@ import BottomSheet, {
   useBottomSheetSpringConfigs,
   BottomSheetScrollView,
 } from "@gorhom/bottom-sheet";
-import SinglePlace from "./SinglePlace";
-import SwipeUpDown from "react-native-swipe-up-down";
 import Map from "./Map";
+import { getPlaces } from "../api";
 
 export default function HomePage() {
+  const [places, setPlaces] = useState([]);
   const bottomSheetRef = useRef(null);
-  const data = useMemo(
-    () =>
-      Array(20)
-        .fill(0)
-        .map((_, index) => `index-${index}`),
-    []
-  );
-  const snapPoints = useMemo(() => ["10%", "50%"], []);
+  const snapPoints = useMemo(() => ["5%", "50%"], []);
   const navigation = useNavigation();
+
+
+  useEffect(() => {
+    const fetchPlaces = async () => {
+      try {
+        const fetchedPlaces = await getPlaces();
+        setPlaces(fetchedPlaces);
+      } catch (error) {
+        console.error("Error fetching places:", error);
+      }
+    };
+    fetchPlaces();
+  }, []);
+
   const handleSheetChanges = useCallback((index) => {
     console.log("handleSheetChanges", index);
   }, []);
-  const renderItem = useCallback(
-    (item) => (
-      <View key={item} style={styles.itemContainer}>
-        <Text>{item}</Text>
-      </View>
-    ),
-    []
-  );
-  const goToSinglePlace = () => {
-    navigation.navigate("SinglePlace");
+
+  const goToSinglePlace = (selectedPlace) => {
+    navigation.navigate("SinglePlace", { place: selectedPlace });
   };
 
   const animationConfigs = useBottomSheetSpringConfigs({
@@ -47,10 +53,6 @@ export default function HomePage() {
   return (
     <View style={mainStyles.container}>
       <Map />
-      <Text style={mainStyles.text}>HomePage</Text>
-      <TouchableOpacity title="Go to SinglePlace" onPress={goToSinglePlace}>
-        <Text style={mainStyles.text}>Single Place</Text>
-      </TouchableOpacity>
       <BottomSheet
         ref={bottomSheetRef}
         index={0}
@@ -63,7 +65,15 @@ export default function HomePage() {
           <Text>Swipe up for places 🎉</Text>
         </View>
         <BottomSheetScrollView contentContainerStyle={styles.contentContainer}>
-          {data.map(renderItem)}
+          {places.map((place) => (
+            <TouchableOpacity
+              key={place.id}
+              style={styles.itemContainer}
+              onPress={() => goToSinglePlace(place)}
+            >
+              <Text>{place.placeName}</Text>
+            </TouchableOpacity>
+          ))}
         </BottomSheetScrollView>
       </BottomSheet>
     </View>
