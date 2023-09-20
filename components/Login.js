@@ -19,7 +19,6 @@ export default function Login({ isAuthenticated, setIsAuthenticated }) {
 
   const navigation = useNavigation();
 
-  console.log(navigation);
 
   const handleLogin = () => {
     setLoading(true);
