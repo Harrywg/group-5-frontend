@@ -16,14 +16,17 @@ export default function Login({ isAuthenticated, setIsAuthenticated }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+
   const navigation = useNavigation();
+
+  console.log(navigation);
 
   const handleLogin = () => {
     setLoading(true);
     setLoading(false);
     setIsAuthenticated(true);
     //Error for navigation here
-    navigation.navigate("Home");
+    // navigation.navigate("MainPages");
   };
 
   return (

@@ -18,38 +18,39 @@ import { useState, useEffect } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Feather from "react-native-vector-icons/Feather";
 
-export const navigationRef = createNavigationContainerRef();
-
 const Stack = createNativeStackNavigator();
+const Tab = createMaterialBottomTabNavigator();
 
-function Home() {
+function MainPages() {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Home" component={HomePage} />
+      <Tab.Screen name="HomePage" component={HomePage} />
       <Tab.Screen name="LeaderBoard" component={LeaderBoard} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   );
 }
 
-const Tab = createMaterialBottomTabNavigator();
-
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={isAuthenticated ? "Home" : "Login"}>
+      <Stack.Navigator
+        initialRouteName={isAuthenticated ? "HomePage" : "Login"}
+      >
         {isAuthenticated ? (
           <Stack.Screen
-            name="Home"
-            component={Home}
+            name="MainPages"
+            component={MainPages}
             options={{ headerShown: false }}
           />
         ) : (
           <Stack.Screen
             name="Login"
-            component={() => <Login setIsAuthenticated={setIsAuthenticated} />}
+            component={() => (
+              <Login setIsAuthenticated={setIsAuthenticated}></Login>
+            )}
             options={{ headerShown: false }}
           />
         )}
