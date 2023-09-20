@@ -17,9 +17,43 @@ import { getPlaces } from "../api";
 
 export default function HomePage() {
   const [places, setPlaces] = useState([]);
+  const [countdownData, setCountdownData] = useState([]);
   const bottomSheetRef = useRef(null);
   const snapPoints = useMemo(() => ["5%", "50%"], []);
   const navigation = useNavigation();
+
+  useEffect(() => {
+    function calculateCountdown(place) {
+      const createdAtTime = new Date(place.createdAt).getTime();
+      const currentTime = new Date().getTime();
+      const timeDifference = createdAtTime + 24 * 60 * 60 * 1000 - currentTime;
+      if (timeDifference <= 0) {
+        return "Expired";
+      } else {
+        const hours = Math.floor(
+          (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const minutes = Math.floor(
+          (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
+        );
+        const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+        return `${hours}h ${minutes}m ${seconds}s`;
+      }
+    }
+    const countdownData = places.map((place) => ({
+      ...place,
+      countdown: calculateCountdown(place),
+    }));
+    setCountdownData(countdownData);
+    const intervalId = setInterval(() => {
+      const updatedCountdownData = countdownData.map((place) => ({
+        ...place,
+        countdown: calculateCountdown(place),
+      }));
+      setCountdownData(updatedCountdownData);
+    }, 1000);
+    return () => clearInterval(intervalId);
+  }, [places]);
 
   useEffect(() => {
     const fetchPlaces = async () => {
@@ -64,7 +98,7 @@ export default function HomePage() {
           <Text>Swipe up for places 🎉</Text>
         </View>
         <BottomSheetScrollView contentContainerStyle={styles.contentContainer}>
-          {places.map((place) => (
+          {countdownData.map((place) => (
             <TouchableOpacity
               key={place.id}
               style={styles.itemContainer}
@@ -76,7 +110,7 @@ export default function HomePage() {
               ) : (
                 <Text>No Image Available</Text>
               )}
-              <Text>{place.createdAt}</Text>
+              <Text>{place.countdown}</Text>
             </TouchableOpacity>
           ))}
         </BottomSheetScrollView>
