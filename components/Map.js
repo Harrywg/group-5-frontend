@@ -3,7 +3,15 @@ import * as Location from "expo-location";
 import MapView, { Circle } from "react-native-maps";
 import { View, StyleSheet, Text } from "react-native";
 import { getPlaces } from "../api";
-export default function Map() {
+export default function Map(props) {
+  // const specificLocation = {
+  //   longitude: 50,
+  //   latitude: 50,
+  //   latitudeDelta: 0.05,
+  //   longitudeDelta: 0.05,
+  // };
+  const { specificLocation } = props;
+
   const [currentLocation, setCurrentLocation] = useState({
     latitude: 0,
     longitude: 0,
@@ -13,6 +21,7 @@ export default function Map() {
 
   const [places, setPlaces] = useState([]);
 
+  //just for logging any location changes
   useEffect(() => console.log(currentLocation), [currentLocation]);
 
   const onPositionChange = (arg) => {
@@ -25,6 +34,8 @@ export default function Map() {
   };
 
   useEffect(() => {
+    if (specificLocation) return;
+    console.log("effect");
     Location.requestForegroundPermissionsAsync()
       .then(({ status }) => {
         if (status !== "granted") throw new Error("permission not granted");
@@ -45,23 +56,25 @@ export default function Map() {
     <View style={styles.container}>
       <MapView
         ref={mapRef}
-        initialRegion={{
-          latitude: currentLocation.latitude,
-          longitude: currentLocation.longitude,
-          latitudeDelta: 0,
-          longitudeDelta: 0,
-        }}
+        initialRegion={
+          !specificLocation
+            ? {
+                latitude: currentLocation.latitude,
+                longitude: currentLocation.longitude,
+                latitudeDelta: 0.05,
+                longitudeDelta: 0.05,
+              }
+            : {
+                latitude: specificLocation.latitude,
+                longitude: specificLocation.longitude,
+                latitudeDelta: 0.05,
+                longitudeDelta: 0.05,
+              }
+        }
+        scrollEnabled={specificLocation ? false : true}
+        zoomEnabled={specificLocation ? false : true}
         style={{ height: "100%", aspectRatio: "1/1" }}
       >
-        {/* <Circle
-          ref={circleRef}
-          center={{
-            latitude: currentLocation.latitude,
-            longitude: currentLocation.longitude,
-          }}
-          radius={1000}
-        ></Circle> */}
-
         {places.map(({ coordinates, _id }) => {
           const [latitude, longitude] = coordinates;
           return (
@@ -87,7 +100,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 0,
     bottom: 0,
-    opacity: 0.5,
   },
   text: {
     color: "white",
