@@ -18,12 +18,56 @@ import { getPlaces } from "../api";
 export default function HomePage() {
   const [places, setPlaces] = useState([]);
   const [countdownData, setCountdownData] = useState([]);
+  const [userCoordinates, setUserCoordinates] = useState([]);
   const bottomSheetRef = useRef(null);
   const snapPoints = useMemo(() => ["8%", "50%"], []);
   const navigation = useNavigation();
-
   const handleSheetChanges = useCallback((index) => {
     console.log("handleSheetChanges", index);
+  }, []);
+  const [currentLocation, setCurrentLocation] = useState({
+    latitude: 0,
+    longitude: 0,
+    latitudeDelta: 0.05,
+    longitudeDelta: 0.05,
+  });
+
+  //just for logging any location changes
+  useEffect(() => console.log(currentLocation), [currentLocation]);
+
+  const onPositionChange = (arg) => {
+    console.log("position changed");
+    const { coords } = arg;
+    const { latitude, longitude } = coords;
+    const newRegion = { ...currentLocation, latitude, longitude };
+    if (coords) setCurrentLocation(newRegion);
+    mapRef.current.animateToRegion(newRegion, 0);
+  };
+console.log(currentLocation, 'CURRENT LOCATION')
+  const mapRef = useRef(null);
+
+  useEffect(() => {
+    function calculateDistance(lat1, lon1, lat2, lon2) {
+      const earthRadius = 6371;
+
+      const lat1Rad = (lat1 * Math.PI) / 180;
+      const lon1Rad = (lon1 * Math.PI) / 180;
+      const lat2Rad = (lat2 * Math.PI) / 180;
+      const lon2Rad = (lon2 * Math.PI) / 180;
+
+      const latDiff = lat2Rad - lat1Rad;
+      const lonDiff = lon2Rad - lon1Rad;
+
+      const a =
+        Math.sin(latDiff / 2) ** 2 +
+        Math.cos(lat1Rad) * Math.cos(lat2Rad) * Math.sin(lonDiff / 2) ** 2;
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      const distance = earthRadius * c;
+
+      return distance;
+    }
+    const distance = calculateDistance(52.52, 13.405, 48.8566, 2.3522);
+    console.log(`The distance is ${distance} kilometers`);
   }, []);
 
   useEffect(() => {
@@ -85,7 +129,12 @@ export default function HomePage() {
 
   return (
     <View style={mainStyles.container}>
-      <Map />
+      <Map
+        currentLocation={currentLocation}
+        setCurrentLocation={setCurrentLocation}
+        onPositionChange={onPositionChange}
+        mapRef={mapRef}
+      />
       <BottomSheet
         ref={bottomSheetRef}
         index={0}
@@ -114,7 +163,7 @@ export default function HomePage() {
                   <Text style={styles.countdown}>
                     {place.countdown === "Event has finished"
                       ? "Event has finished"
-                      : place.countdown}
+                      : `Time remaining:  ${place.countdown}`}
                   </Text>
                 </View>
                 <Image style={styles.image} source={{ uri: place.imgURL }} />
