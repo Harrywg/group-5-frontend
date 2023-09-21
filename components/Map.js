@@ -10,28 +10,14 @@ export default function Map(props) {
   //   latitudeDelta: 0.1,
   //   longitudeDelta: 0.1,
   // };
-  const { specificLocation } = props;
-
-  const [currentLocation, setCurrentLocation] = useState({
-    latitude: 0,
-    longitude: 0,
-    latitudeDelta: 0.05,
-    longitudeDelta: 0.05,
-  });
-
+  const {
+    specificLocation,
+    currentLocation,
+    setCurrentLocation,
+    onPositionChange,
+    mapRef,
+  } = props;
   const [places, setPlaces] = useState([]);
-
-  //just for logging any location changes
-  useEffect(() => console.log(currentLocation), [currentLocation]);
-
-  const onPositionChange = (arg) => {
-    console.log("position changed");
-    const { coords } = arg;
-    const { latitude, longitude } = coords;
-    const newRegion = { ...currentLocation, latitude, longitude };
-    if (coords) setCurrentLocation(newRegion);
-    mapRef.current.animateToRegion(newRegion, 0);
-  };
 
   useEffect(() => {
     if (specificLocation) return;
@@ -49,7 +35,6 @@ export default function Map(props) {
     getPlaces().then(setPlaces);
   }, []);
 
-  const mapRef = useRef(null);
   const circleRef = useRef(null);
 
   return (
