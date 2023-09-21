@@ -113,7 +113,7 @@ export default function HomePage() {
                   <Text style={styles.placeName}>{place.placeName}</Text>
                   <Text style={styles.countdown}>
                     {place.countdown === "Event has finished"
-                      ? "Expired"
+                      ? "Event has finished"
                       : place.countdown}
                   </Text>
                 </View>
@@ -166,9 +166,14 @@ const styles = StyleSheet.create({
   },
   countdown: {
     fontSize: 14,
-    color: "gray",
+    color: "black",
   },
   placeName: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 4,
+  },
+  text: {
     fontSize: 16,
     fontWeight: "bold",
     marginBottom: 4,
