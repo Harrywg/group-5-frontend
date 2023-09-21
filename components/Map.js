@@ -10,7 +10,7 @@ export default function Map(props) {
   //   latitudeDelta: 0.1,
   //   longitudeDelta: 0.1,
   // };
-  // const { specificLocation } = props;
+  const { specificLocation } = props;
 
   const [currentLocation, setCurrentLocation] = useState({
     latitude: 0,
