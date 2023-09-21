@@ -30,7 +30,7 @@ export default function Map(props) {
     const { latitude, longitude } = coords;
     const newRegion = { ...currentLocation, latitude, longitude };
     if (coords) setCurrentLocation(newRegion);
-    mapRef.current.animateToRegion(newRegion, 1000);
+    mapRef.current.animateToRegion(newRegion, 0);
   };
 
   useEffect(() => {
@@ -64,12 +64,7 @@ export default function Map(props) {
                 latitudeDelta: 0.05,
                 longitudeDelta: 0.05,
               }
-            : {
-                latitude: specificLocation.latitude,
-                longitude: specificLocation.longitude,
-                latitudeDelta: 0.05,
-                longitudeDelta: 0.05,
-              }
+            : specificLocation
         }
         scrollEnabled={specificLocation ? false : true}
         zoomEnabled={specificLocation ? false : true}
