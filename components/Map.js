@@ -10,6 +10,7 @@ export default function Map(props) {
     setCurrentLocation,
     onPositionChange,
     mapRef,
+    placeCoords,
   } = props;
 
   const [places, setPlaces] = useState([]);
