@@ -41,9 +41,9 @@ export default function HomePage() {
     const { latitude, longitude } = coords;
     const newRegion = { ...currentLocation, latitude, longitude };
     if (coords) setCurrentLocation(newRegion);
-    mapRef.current.animateToRegion(newRegion, 0);
+    if (newRegion) mapRef.current.animateToRegion(newRegion, 0);
   };
-console.log(currentLocation, 'CURRENT LOCATION')
+  console.log(currentLocation, "CURRENT LOCATION");
   const mapRef = useRef(null);
 
   useEffect(() => {

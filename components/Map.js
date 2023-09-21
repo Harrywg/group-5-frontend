@@ -4,28 +4,18 @@ import MapView, { Circle } from "react-native-maps";
 import { View, StyleSheet, Text } from "react-native";
 import { getPlaces } from "../api";
 export default function Map(props) {
-  const { specificLocation } = props;
-
-  const [currentLocation, setCurrentLocation] = useState({
-    latitude: 0,
-    longitude: 0,
-    latitudeDelta: 0.05,
-    longitudeDelta: 0.05,
-  });
+  const {
+    specificLocation,
+    currentLocation,
+    setCurrentLocation,
+    onPositionChange,
+    mapRef,
+  } = props;
 
   const [places, setPlaces] = useState([]);
 
   //just for logging any location changes
   useEffect(() => console.log(currentLocation), [currentLocation]);
-
-  const onPositionChange = (arg) => {
-    console.log("position changed");
-    const { coords } = arg;
-    const { latitude, longitude } = coords;
-    const newRegion = { ...currentLocation, latitude, longitude };
-    if (coords) setCurrentLocation(newRegion);
-    if (newRegion) mapRef.current.animateToRegion(newRegion, 0);
-  };
 
   useEffect(() => {
     if (specificLocation) return;
@@ -43,7 +33,6 @@ export default function Map(props) {
     getPlaces().then(setPlaces);
   }, []);
 
-  const mapRef = useRef(null);
   const circleRef = useRef(null);
 
   return (
