@@ -5,7 +5,6 @@ const api = axios.create({
 });
 
 export const getUsers = () => {
-  console.log("invoke");
   return api.get("/users").then(({ data }) => data);
 };
 
