@@ -88,7 +88,7 @@ export default function HomePage() {
       <Map />
       <BottomSheet
         ref={bottomSheetRef}
-        index={1}
+        index={0}
         snapPoints={snapPoints}
         onChange={handleSheetChanges}
         animationConfigs={animationConfigs}

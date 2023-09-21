@@ -5,6 +5,7 @@ import HomePage from "./components/HomePage";
 import Profile from "./components/Profile";
 import LeaderBoard from "./components/LeaderBoard";
 import SinglePlace from "./components/SinglePlace";
+import PostPlace from "./components/Post";
 import mainStyles from "./styles/mainStyles";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import React from "react";
@@ -14,12 +15,12 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
-
 function MainPages() {
   return (
     <Tab.Navigator>
       <Tab.Screen name="HomePage" component={HomePage} />
       <Tab.Screen name="LeaderBoard" component={LeaderBoard} />
+      <Tab.Screen name="Post" component={PostPlace} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   );
