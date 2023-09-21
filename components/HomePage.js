@@ -19,8 +19,12 @@ export default function HomePage() {
   const [places, setPlaces] = useState([]);
   const [countdownData, setCountdownData] = useState([]);
   const bottomSheetRef = useRef(null);
-  const snapPoints = useMemo(() => ["5%", "50%"], []);
+  const snapPoints = useMemo(() => ["10%", "50%"], []);
   const navigation = useNavigation();
+
+  const handleSheetChanges = useCallback((index) => {
+    console.log("handleSheetChanges", index);
+  }, []);
 
   useEffect(() => {
     function calculateCountdown(place) {
@@ -28,7 +32,7 @@ export default function HomePage() {
       const currentTime = new Date().getTime();
       const timeDifference = createdAtTime + 24 * 60 * 60 * 1000 - currentTime;
       if (timeDifference <= 0) {
-        return "Expired";
+        return "Event has finished";
       } else {
         const hours = Math.floor(
           (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
@@ -67,20 +71,16 @@ export default function HomePage() {
     fetchPlaces();
   }, []);
 
-  const handleSheetChanges = useCallback((index) => {
-    console.log("handleSheetChanges", index);
-  }, []);
-
   const goToSinglePlace = (selectedPlace) => {
     navigation.navigate("SinglePlace", { place: selectedPlace });
   };
 
   const animationConfigs = useBottomSheetSpringConfigs({
-    damping: 80,
+    damping: 100,
     overshootClamping: true,
     restDisplacementThreshold: 0.1,
     restSpeedThreshold: 0.1,
-    stiffness: 500,
+    stiffness: 800,
   });
 
   return (
@@ -95,21 +95,21 @@ export default function HomePage() {
         enableContentPanningGesture={true}
       >
         <View style={styles.contentContainer}>
-          <Text>Swipe up for places 🎉</Text>
+          <Text style={styles.text}>Swipe up for places 🎉</Text>
         </View>
         <BottomSheetScrollView contentContainerStyle={styles.contentContainer}>
           {countdownData.map((place) => (
             <TouchableOpacity
               key={place.id}
-              style={styles.itemContainer}
+              style={
+                place.countdown === "Event has finished"
+                  ? styles.expiredCountdown
+                  : styles.text
+              }
               onPress={() => goToSinglePlace(place)}
             >
               <Text>{place.placeName}</Text>
-              {place.imgURL ? (
-                <Image source={{ uri: place.imgURL }} style={styles.image} />
-              ) : (
-                <Text>No Image Available</Text>
-              )}
+              <Image source={{ uri: place.imgURL }} style={styles.image} />
               <Text>{place.countdown}</Text>
             </TouchableOpacity>
           ))}
@@ -127,13 +127,31 @@ const styles = StyleSheet.create({
   contentContainer: {
     backgroundColor: "white",
     padding: 16,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
     shadowColor: "#000",
   },
   itemContainer: {
     padding: 7,
     margin: 2,
     backgroundColor: "#eee",
+  },
+  expiredCountdown: {
+    backgroundColor: "red",
+    borderWidth: 5,
+    padding: 16,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    shadowColor: "#000",
+    padding: 7,
+    margin: 2,
+  },
+  text: {
+    textAlign: "centre",
+    backgroundColor: "white",
+    borderWidth: 5,
+    padding: 16,
+    padding: 7,
+    margin: 2,
   },
 });
