@@ -19,7 +19,7 @@ export default function HomePage() {
   const [places, setPlaces] = useState([]);
   const [countdownData, setCountdownData] = useState([]);
   const bottomSheetRef = useRef(null);
-  const snapPoints = useMemo(() => ["10%", "50%"], []);
+  const snapPoints = useMemo(() => ["8%", "50%"], []);
   const navigation = useNavigation();
 
   const handleSheetChanges = useCallback((index) => {
@@ -104,13 +104,21 @@ export default function HomePage() {
               style={
                 place.countdown === "Event has finished"
                   ? styles.expiredCountdown
-                  : styles.text
+                  : styles.itemContainer
               }
               onPress={() => goToSinglePlace(place)}
             >
-              <Text>{place.placeName}</Text>
-              <Image source={{ uri: place.imgURL }} style={styles.image} />
-              <Text>{place.countdown}</Text>
+              <View style={styles.itemContent}>
+                <View style={styles.leftContent}>
+                  <Text style={styles.placeName}>{place.placeName}</Text>
+                  <Text style={styles.countdown}>
+                    {place.countdown === "Event has finished"
+                      ? "Expired"
+                      : place.countdown}
+                  </Text>
+                </View>
+                <Image style={styles.image} source={{ uri: place.imgURL }} />
+              </View>
             </TouchableOpacity>
           ))}
         </BottomSheetScrollView>
@@ -130,9 +138,19 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
   },
   itemContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     padding: 7,
     margin: 2,
     backgroundColor: "#eee",
+  },
+  itemContent: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  leftContent: {
+    flex: 1,
   },
   expiredCountdown: {
     backgroundColor: "red",
@@ -146,12 +164,18 @@ const styles = StyleSheet.create({
     padding: 7,
     margin: 2,
   },
-  text: {
-    textAlign: "centre",
-    backgroundColor: "white",
-    borderWidth: 5,
-    padding: 16,
-    padding: 7,
-    margin: 2,
+  countdown: {
+    fontSize: 14,
+    color: "gray",
+  },
+  placeName: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 4,
+  },
+  image: {
+    width: 150,
+    height: 150,
+    resizeMode: "cover",
   },
 });
