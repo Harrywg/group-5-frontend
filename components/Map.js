@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import * as Location from "expo-location";
 import MapView, { Circle } from "react-native-maps";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { getPlaces } from "../api";
 export default function Map(props) {
   const {
@@ -11,9 +11,11 @@ export default function Map(props) {
     onPositionChange,
     mapRef,
     placeCoords,
+    calculateDistance,
   } = props;
 
   const [places, setPlaces] = useState([]);
+  const [userHasScrolled, setUserHasScrolled] = useState(false);
 
   //just for logging any location changes
   useEffect(() => console.log(currentLocation), [currentLocation]);
@@ -36,6 +38,29 @@ export default function Map(props) {
 
   const circleRef = useRef(null);
 
+  const handleRegionChangeComplete = (region) => {
+    const distance = calculateDistance(
+      currentLocation.latitude,
+      currentLocation.longitude,
+      region.latitude,
+      region.longitude
+    );
+
+    if (distance > 1) {
+      setUserHasScrolled(true);
+    } else {
+      setUserHasScrolled(false);
+    }
+
+    console.log("Scrolled away:", userHasScrolled);
+  };
+
+  const returnToCurrentLocation = () => {
+    console.log("Return to current location button pressed");
+    mapRef.current.animateToRegion(currentLocation, 500);
+    setUserHasScrolled(false);
+  };
+
   return (
     <View style={styles.container}>
       <MapView
@@ -53,7 +78,18 @@ export default function Map(props) {
         scrollEnabled={specificLocation ? false : true}
         zoomEnabled={specificLocation ? false : true}
         style={{ height: "100%", aspectRatio: "1/1" }}
+        onRegionChangeComplete={handleRegionChangeComplete}
       >
+        {userHasScrolled ? (
+          <TouchableOpacity
+            onPress={returnToCurrentLocation}
+            style={styles.returnButton}
+          >
+            <Text style={styles.text}>Return</Text>
+          </TouchableOpacity>
+        ) : (
+          <></>
+        )}
         {places.map(({ coordinates, _id }) => {
           const [latitude, longitude] = coordinates;
           return (
@@ -82,5 +118,16 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "white",
+  },
+  returnButton: {
+    position: "absolute",
+    top: "10%",
+    left: "30%",
+    zIndex: 1000,
+    height: 50,
+    width: 100,
+    backgroundColor: "blue",
+    justifyContent: "center", // Center text vertically
+    alignItems: "center",
   },
 });
