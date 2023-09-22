@@ -19,6 +19,14 @@ const Tab = createMaterialBottomTabNavigator();
 function MainPages() {
   return (
     <Tab.Navigator
+      style={{
+        flex: 1,
+        position: "absolute",
+        bottom: "-2.8%",
+        top: 0,
+        right: 0,
+        left: 0,
+      }}
       screenOptions={({ route }) => ({
         tabBarActiveBackgroundColor: "yellow",
         tabBarIcon: ({ focused, size, color }) => {
@@ -58,11 +66,6 @@ export default function App() {
     <GestureHandlerRootView
       style={{
         flex: 1,
-        position: "absolute",
-        bottom: -73,
-        top: 0,
-        right: 0,
-        left: 0,
       }}
     >
       <NavigationContainer>
