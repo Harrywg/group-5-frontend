@@ -129,9 +129,10 @@ export default function HomePage() {
           <Text style={styles.text}>Swipe up for places 🎉</Text>
         </View>
         <BottomSheetScrollView contentContainerStyle={styles.contentContainer}>
-          {places.map((place) => {
+          {places.map((place, i) => {
             return (
               <ListedSinglePlace
+                key={i}
                 place={place}
                 styles={styles}
                 calculateDistance={calculateDistance}
