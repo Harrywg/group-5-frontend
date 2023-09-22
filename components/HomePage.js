@@ -116,6 +116,7 @@ export default function HomePage() {
         setCurrentLocation={setCurrentLocation}
         onPositionChange={onPositionChange}
         mapRef={mapRef}
+        calculateDistance={calculateDistance}
       />
       <BottomSheet
         ref={bottomSheetRef}
