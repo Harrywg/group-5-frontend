@@ -13,6 +13,7 @@ import BottomSheet, {
   BottomSheetScrollView,
 } from "@gorhom/bottom-sheet";
 import Map from "./Map";
+import ListedSinglePlace from "./ListedSinglePlace";
 import { getPlaces } from "../api";
 
 function calculateDistance(lat1, lon1, lat2, lon2) {
@@ -42,8 +43,7 @@ export default function HomePage() {
   const bottomSheetRef = useRef(null);
   const snapPoints = useMemo(() => ["8%", "50%"], []);
   const navigation = useNavigation();
-  const handleSheetChanges = useCallback((index) => {
-  }, []);
+  const handleSheetChanges = useCallback((index) => {}, []);
   const [currentLocation, setCurrentLocation] = useState({
     latitude: 0,
     longitude: 0,
@@ -64,38 +64,23 @@ export default function HomePage() {
   };
   const mapRef = useRef(null);
 
-  useEffect(() => {
-    function calculateCountdown(place) {
-      const createdAtTime = new Date(place.createdAt).getTime();
-      const currentTime = new Date().getTime();
-      const timeDifference = createdAtTime + 24 * 60 * 60 * 1000 - currentTime;
-      if (timeDifference <= 0) {
-        return "Event has finished";
-      } else {
-        const hours = Math.floor(
-          (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-        );
-        const minutes = Math.floor(
-          (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
-        );
-        const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
-        return `${hours}h ${minutes}m ${seconds}s`;
-      }
+  function calculateCountdown(place) {
+    const createdAtTime = new Date(place.createdAt).getTime();
+    const currentTime = new Date().getTime();
+    const timeDifference = createdAtTime + 24 * 60 * 60 * 1000 - currentTime;
+    if (timeDifference <= 0) {
+      return "Event has finished";
+    } else {
+      const hours = Math.floor(
+        (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      const minutes = Math.floor(
+        (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
+      );
+      const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+      return `${hours}h ${minutes}m ${seconds}s`;
     }
-    const countdownData = places.map((place) => ({
-      ...place,
-      countdown: calculateCountdown(place),
-    }));
-    setCountdownData(countdownData);
-    const intervalId = setInterval(() => {
-      const updatedCountdownData = countdownData.map((place) => ({
-        ...place,
-        countdown: calculateCountdown(place),
-      }));
-      setCountdownData(updatedCountdownData);
-    }, 1000);
-    return () => clearInterval(intervalId);
-  }, [places]);
+  }
 
   useEffect(() => {
     const fetchPlaces = async () => {
@@ -141,38 +126,15 @@ export default function HomePage() {
           <Text style={styles.text}>Swipe up for places 🎉</Text>
         </View>
         <BottomSheetScrollView contentContainerStyle={styles.contentContainer}>
-          {countdownData.map((place) => {
-            const distance = calculateDistance(
-              currentLocation.latitude,
-              currentLocation.longitude,
-              place.coordinates[0],
-              place.coordinates[1]
-            );
+          {places.map((place) => {
             return (
-              <TouchableOpacity
-                key={place.id}
-                style={
-                  place.countdown === "Event has finished"
-                    ? styles.expiredCountdown
-                    : styles.itemContainer
-                }
-                onPress={() => goToSinglePlace(place)}
-              >
-                <View style={styles.itemContent}>
-                  <View style={styles.leftContent}>
-                    <Text style={styles.placeName}>{place.placeName}</Text>
-                    <Text style={styles.countdown}>
-                      {place.countdown === "Event has finished"
-                        ? "Event has finished"
-                        : `Time remaining:  ${place.countdown}`}
-                    </Text>
-                    <Text
-                      style={styles.distance}
-                    >{`Distance: ${distance} km`}</Text>
-                  </View>
-                  <Image style={styles.image} source={{ uri: place.imgURL }} />
-                </View>
-              </TouchableOpacity>
+              <ListedSinglePlace
+                place={place}
+                styles={styles}
+                calculateDistance={calculateDistance}
+                currentLocation={currentLocation}
+                calculateCountdown={calculateCountdown}
+              />
             );
           })}
         </BottomSheetScrollView>
