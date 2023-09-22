@@ -42,8 +42,7 @@ export default function HomePage() {
   const bottomSheetRef = useRef(null);
   const snapPoints = useMemo(() => ["8%", "50%"], []);
   const navigation = useNavigation();
-  const handleSheetChanges = useCallback((index) => {
-  }, []);
+  const handleSheetChanges = useCallback((index) => {}, []);
   const [currentLocation, setCurrentLocation] = useState({
     latitude: 0,
     longitude: 0,
@@ -110,7 +109,10 @@ export default function HomePage() {
   }, []);
 
   const goToSinglePlace = (selectedPlace) => {
-    navigation.navigate("SinglePlace", { place: selectedPlace });
+    navigation.navigate("SinglePlace", {
+      place: selectedPlace,
+      currentLocation,
+    });
   };
 
   const animationConfigs = useBottomSheetSpringConfigs({
