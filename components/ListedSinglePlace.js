@@ -6,6 +6,7 @@ export default function ListedSinglePlace({
   calculateDistance,
   currentLocation,
   calculateCountdown,
+  goToSinglePlace,
 }) {
   const [timeLeft, setTimeLeft] = useState(calculateCountdown(place));
 
@@ -29,7 +30,7 @@ export default function ListedSinglePlace({
           ? styles.expiredCountdown
           : styles.itemContainer
       }
-      onPress={() => goToSinglePlace(place)}
+      onPress={() => goToSinglePlace(place, currentLocation)}
     >
       <View style={styles.itemContent}>
         <View style={styles.leftContent}>

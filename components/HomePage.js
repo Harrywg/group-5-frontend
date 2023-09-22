@@ -94,8 +94,11 @@ export default function HomePage() {
     fetchPlaces();
   }, []);
 
-  const goToSinglePlace = (selectedPlace) => {
-    navigation.navigate("SinglePlace", { place: selectedPlace });
+  const goToSinglePlace = (selectedPlace, currentLocation) => {
+    navigation.navigate("SinglePlace", {
+      place: selectedPlace,
+      currentLocation,
+    });
   };
 
   const animationConfigs = useBottomSheetSpringConfigs({
@@ -134,6 +137,7 @@ export default function HomePage() {
                 calculateDistance={calculateDistance}
                 currentLocation={currentLocation}
                 calculateCountdown={calculateCountdown}
+                goToSinglePlace={goToSinglePlace}
               />
             );
           })}
