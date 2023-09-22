@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import mainStyles from "../styles/mainStyles";
 import { useRoute } from "@react-navigation/native";
+import { useEffect, useState } from "react";
 import Map from "./Map";
 export default function SinglePlace() {
   const route = useRoute();
@@ -37,6 +38,32 @@ export default function SinglePlace() {
 
     return parseFloat(roundedDistance);
   }
+
+  function calculateTime(place) {
+    const createdAtTime = new Date(place.createdAt).getTime();
+    const currentTime = new Date().getTime();
+    const timeDifference = createdAtTime + 24 * 60 * 60 * 1000 - currentTime;
+    if (timeDifference <= 0) {
+      return "Event has finished";
+    } else {
+      const hours = Math.floor(
+        (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      const minutes = Math.floor(
+        (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
+      );
+      const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+      return `${hours}h ${minutes}m ${seconds}s`;
+    }
+  }
+
+  const [timeLeft, setTimeLeft] = useState(calculateTime(selectedPlace));
+
+  useEffect(() => {
+    setInterval(() => {
+      setTimeLeft(calculateTime(selectedPlace));
+    }, 1000);
+  }, []);
 
   return (
     <View style={mainStyles.container}>
@@ -69,7 +96,7 @@ export default function SinglePlace() {
             )}{" "}
             km
           </Text>
-          <Text>Time Left : </Text>
+          <Text>Time Left : {timeLeft}</Text>
           <Text>Guesses : {selectedPlace.guesses.length}</Text>
         </View>
         <Image
