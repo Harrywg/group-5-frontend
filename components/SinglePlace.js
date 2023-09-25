@@ -2,6 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import {
   Text,
   View,
+  ScrollView,
   Button,
   StyleSheet,
   TouchableOpacity,
@@ -11,6 +12,13 @@ import mainStyles from "../styles/mainStyles";
 import { useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import Map from "./Map";
+
+const medals = {
+  bronze: require("./img/bronze-medal.png"),
+  silver: require("./img/silver-medal.png"),
+  gold: require("./img/gold-medal.png"),
+};
+
 export default function SinglePlace() {
   const route = useRoute();
   const selectedPlace = route.params.place;
@@ -73,7 +81,7 @@ export default function SinglePlace() {
           top: 0,
           left: 0,
           right: 0,
-          bottom: "35%",
+          bottom: "45%",
         }}
       >
         <Map
@@ -88,16 +96,24 @@ export default function SinglePlace() {
       </View>
       <View style={styles.details}>
         <TouchableOpacity
+          style={styles.submitButton}
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
+          <Text style={{ color: "white" }}>Submit Guess</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
           style={styles.backButton}
           onPress={() => {
             navigation.goBack();
           }}
         >
-          <Text style={{ color: "white" }}>Back</Text>
+          <Text style={{ color: "white" }}>⟵ Back</Text>
         </TouchableOpacity>
         <View style={styles.detailsText}>
+          <Text style={{ fontWeight: 800 }}>{selectedPlace.creator}</Text>
           <Text>
-            Distance :{" "}
             {calculateDistance(
               currentLocation.latitude,
               currentLocation.longitude,
@@ -106,11 +122,50 @@ export default function SinglePlace() {
             )}{" "}
             km
           </Text>
-          <Text>Time Left : {timeLeft}</Text>
-          <Text>Guesses : {selectedPlace.guesses.length}</Text>
+          <Text>{timeLeft}</Text>
+          <Text style={{ marginBottom: 5 }}>
+            Guesses : {selectedPlace.guesses.length}
+          </Text>
+          <ScrollView
+            style={{
+              marginTop: 5,
+              width: "100%",
+              flex: 1,
+            }}
+          >
+            {selectedPlace.guesses.map((guess) => {
+              return (
+                <View
+                  style={{
+                    borderStyle: "solid",
+                    borderWidth: 1,
+                    padding: 10,
+                    marginVertical: 5,
+                    flex: 1,
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    maxWidth: 120,
+                  }}
+                >
+                  <Text
+                    style={{
+                      maxWidth: 90,
+                    }}
+                    numberOfLines={1}
+                  >
+                    {guess.username}
+                  </Text>
+                  <Image
+                    source={medals[guess.medal]}
+                    style={{ height: 15, width: 10 }}
+                  />
+                </View>
+              );
+            })}
+          </ScrollView>
         </View>
         <Image
-          style={{ height: "100%", width: "50%" }}
+          style={{ height: "100%", width: "60%" }}
           src={selectedPlace.imgURL}
         />
       </View>
@@ -121,25 +176,40 @@ export default function SinglePlace() {
 const styles = StyleSheet.create({
   backButton: {
     position: "absolute",
-    top: 20,
+    bottom: 20,
     left: 20,
-    backgroundColor: "rgba(64, 147, 249, 1)",
+    backgroundColor: "#3FC1C0",
+    fontWeight: 800,
     borderRadius: 1000,
     padding: 10,
+    paddingHorizontal: 20,
     width: "auto",
+    zIndex: 100,
+  },
+  submitButton: {
+    position: "absolute",
+    left: "50%",
+    top: -50,
+    transform: [{ translateX: -65 }],
+    backgroundColor: "#3FC1C0",
+    width: 130,
+    fontWeight: 800,
+    borderRadius: 1000,
+    padding: 10,
+    paddingHorizontal: 20,
     zIndex: 100,
   },
   details: {
     flex: 1,
     justifyContent: "space-between",
-    alignItems: "center",
     flexDirection: "row",
     position: "absolute",
     bottom: 0,
     width: "100%",
-    height: "35%",
+    height: "50%",
     backgroundColor: "white",
     flex: 1,
+    padding: 0,
   },
   detailsText: {
     padding: 20,
