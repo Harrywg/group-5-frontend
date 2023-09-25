@@ -17,5 +17,5 @@ export const getUsersByUsername = (username) => {
 };
 
 export const postPlace = (newPlace) => {
-  return api.post(`/users/places`, newPlace).then(({ data }) => data);
+  return api.post(`/places`, newPlace).then(({ data }) => data);
 };
