@@ -10,11 +10,12 @@ import SinglePlace from "./components/SinglePlace";
 import PostPlace from "./components/Post";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import React from "react";
-import { useState, useEffect } from "react";
+import { AuthProvider } from "./context";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
+const LoginScreen = () => <Login />;
 
 function MainPages() {
   return (
@@ -28,7 +29,6 @@ function MainPages() {
         left: 0,
       }}
       screenOptions={({ route }) => ({
-        tabBarActiveBackgroundColor: "yellow",
         tabBarIcon: ({ focused, size, color }) => {
           let iconName;
           let adjustedSize = size;
@@ -58,42 +58,34 @@ function MainPages() {
     </Tab.Navigator>
   );
 }
-
 export default function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
   return (
-    <GestureHandlerRootView
-      style={{
-        flex: 1,
-      }}
-    >
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName={isAuthenticated ? "HomePage" : "Login"}
-        >
-          {isAuthenticated ? (
+    <AuthProvider>
+      <GestureHandlerRootView
+        style={{
+          flex: 1,
+        }}
+      >
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName={"Login"}>
             <Stack.Screen
               name="MainPages"
               component={MainPages}
               options={{ headerShown: false }}
             />
-          ) : (
             <Stack.Screen
               name="Login"
-              component={() => (
-                <Login setIsAuthenticated={setIsAuthenticated}></Login>
-              )}
+              component={LoginScreen}
               options={{ headerShown: false }}
             />
-          )}
-          <Stack.Screen
-            name="SinglePlace"
-            options={{ headerShown: false }}
-            component={SinglePlace}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </GestureHandlerRootView>
+            <Stack.Screen
+              name="SinglePlace"
+              options={{ headerShown: false }}
+              component={SinglePlace}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </GestureHandlerRootView>
+    </AuthProvider>
   );
 }
