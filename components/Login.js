@@ -1,48 +1,46 @@
 import { useNavigation } from "@react-navigation/native";
+import { useState, useEffect, useMemo, useContext } from "react";
+import { getUsersByUsername } from "../api";
+import { useAuth } from "../context";
 import {
   Text,
   View,
-  Button,
   StyleSheet,
   KeyboardAvoidingView,
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import { useState, useEffect } from "react";
-import mainStyles from "../styles/mainStyles";
-import HomePage from "./HomePage";
 
-export default function Login({ isAuthenticated, setIsAuthenticated }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+
+export default function Login() {
   const [loading, setLoading] = useState(false);
-
+  const [username, setUsername] = useState("MrDEVastation");
+  const { login } = useAuth();
+  
   const navigation = useNavigation();
 
-
-  const handleLogin = () => {
+  const handleLogin = async () => {
     setLoading(true);
+    try {
+      const userExists = await getUsersByUsername(username);
+      if (userExists) {
+        login(username);
+        navigation.navigate("MainPages");
+      }
+    } catch (error) {
+      console.error("Error checking user", error);
+    }
     setLoading(false);
-    setIsAuthenticated(true);
-    //Error for navigation here
-    // navigation.navigate("MainPages");
   };
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <View style={styles.inputContainer}>
         <TextInput
-          placeholder="Email"
-          value={email}
-          onChangeText={(text) => setEmail(text)}
+          placeholder="Username"
+          value={username}
+          onChangeText={(text) => setUsername(text)}
           style={styles.input}
-        />
-        <TextInput
-          placeholder="Password"
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-          style={styles.input}
-          secureTextEntry
         />
       </View>
       <View style={styles.buttonContainer}>
