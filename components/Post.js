@@ -13,7 +13,7 @@ import * as MediaLibrary from "expo-media-library";
 import * as Location from "expo-location";
 import { MaterialIcons, Entypo } from "@expo/vector-icons";
 import mainStyles from "../styles/mainStyles";
-import { postPlace } from "../api";
+import { postPlace, getUsers } from "../api";
 
 export default function PostPlace() {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
@@ -24,6 +24,13 @@ export default function PostPlace() {
   const cameraRef = useRef(null);
   const [placeName, setPlaceName] = useState(null);
   const [location, setLocation] = useState(null);
+  const [userData, setUserData] = useState({});
+
+  useEffect(() => {
+    getUsers().then((res) => {
+      setUserData(res[0]);
+    });
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -65,13 +72,13 @@ export default function PostPlace() {
   const handlePlaceSubmit = async () => {
     try {
       alert("Place submitted! 🎉");
-      console.log(image,'image')
+      console.log(image, "image");
       postPlace({
-          placeName: placeName,
-          coordinates: [location.latitude, location.longitude],
-          creator: "DevUser1",
-          imgURL: image,
-      })
+        placeName: placeName,
+        coordinates: [location.latitude, location.longitude],
+        creator: "DevUser1",
+        imgURL: image,
+      });
       setSubmittedImage(false);
       setImage(null);
     } catch (error) {
@@ -159,16 +166,13 @@ export default function PostPlace() {
   } else {
     console.log(image, "image");
     return (
-      <View style={mainStyles.container}>
-        <Text style={mainStyles.text}>Post your place</Text>
-        <TextInput
-          placeholder="Place name"
-          value={placeName}
-          onChangeText={(text) => setPlaceName(text)}
-          style={styles.input}
-        />
+      <View style={formStyles.container}>
+        <Text style={formStyles.title}>Post your place</Text>
+        <Text style={formStyles.text}>{userData.username}'s Place</Text>
         <Image source={{ uri: image }} style={styles.image} />
-        <Button title="Post Place" onPress={handlePlaceSubmit} />
+        <TouchableOpacity style={formStyles.button} onPress={handlePlaceSubmit}>
+          <Button title="Post Place" />
+        </TouchableOpacity>
       </View>
     );
   }
@@ -204,7 +208,7 @@ const styles = StyleSheet.create({
   text: {
     fontWeight: "bold",
     fontSize: 16,
-    color: "#E9730F",
+    color: "white",
     marginLeft: 10,
   },
   camera: {
@@ -222,10 +226,47 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   image: {
-    width: 200, 
+    width: 200,
     height: 200,
-    resizeMode: "cover", 
-    borderRadius: 10, 
-    marginTop: 10, 
+    resizeMode: "cover",
+    borderRadius: 10,
+    marginTop: 10,
+  },
+});
+
+const formStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center", // Center the content horizontally
+    paddingTop: Constants.statusBarHeight,
+    backgroundColor: "white",
+    padding: 16, // Increased padding for better spacing
+  },
+  title: {
+    fontSize: 32, // Larger font size for the title
+    fontWeight: "bold",
+    color: "#3FC1C0", // White text color
+    marginBottom: 10, // Add spacing between title and text
+  },
+  text: {
+    fontSize: 18, // Smaller font size for the text
+    color: "#3FC1C0", // White text color
+    marginBottom: 20, // Add spacing between text and image
+  },
+  image: {
+    width: 200,
+    height: 200,
+    resizeMode: "cover",
+    borderRadius: 10,
+    marginBottom: 20, 
+  },
+  button: {
+    color: "#3FC1C0",
+    backgroundColor: "#3FC1C0",
+    marginTop: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
   },
 });
