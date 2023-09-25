@@ -67,15 +67,25 @@ export default function SinglePlace() {
 
   return (
     <View style={mainStyles.container}>
-      <Map
-        specificLocation={{
-          latitude: coords[0],
-          longitude: coords[1],
-          latitudeDelta: 0.01,
-          longitudeDelta: 0.01,
+      <View
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: "35%",
         }}
-        placeCoords={selectedPlace.coordinates}
-      />
+      >
+        <Map
+          specificLocation={{
+            latitude: coords[0],
+            longitude: coords[1],
+            latitudeDelta: 0.01,
+            longitudeDelta: 0.01,
+          }}
+          placeCoords={selectedPlace.coordinates}
+        />
+      </View>
       <View style={styles.details}>
         <TouchableOpacity
           style={styles.backButton}
@@ -127,7 +137,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     width: "100%",
-    height: 250,
+    height: "35%",
     backgroundColor: "white",
     flex: 1,
   },
