@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   TextInput,
+  Dimensions,
 } from "react-native";
 import Constants from "expo-constants";
 import { Camera, CameraType } from "expo-camera";
@@ -14,6 +15,7 @@ import * as Location from "expo-location";
 import { MaterialIcons, Entypo } from "@expo/vector-icons";
 import mainStyles from "../styles/mainStyles";
 import { postPlace, getUsers } from "../api";
+import Map from "./Map";
 
 export default function PostPlace() {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
@@ -22,9 +24,10 @@ export default function PostPlace() {
   const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
   const [submittedImage, setSubmittedImage] = useState(false);
   const cameraRef = useRef(null);
-  const [placeName, setPlaceName] = useState(null);
   const [location, setLocation] = useState(null);
   const [userData, setUserData] = useState({});
+
+  const currentLocation = location;
 
   useEffect(() => {
     getUsers().then((res) => {
@@ -74,9 +77,9 @@ export default function PostPlace() {
       alert("Place submitted! 🎉");
       console.log(image, "image");
       postPlace({
-        placeName: placeName,
+        placeName: `${userData.username}'s Place`,
         coordinates: [location.latitude, location.longitude],
-        creator: "DevUser1",
+        creator: `${userData.username}`,
         imgURL: image,
       });
       setSubmittedImage(false);
@@ -170,8 +173,11 @@ export default function PostPlace() {
         <Text style={formStyles.title}>Post your place</Text>
         <Text style={formStyles.text}>{userData.username}'s Place</Text>
         <Image source={{ uri: image }} style={styles.image} />
+        <View style={formStyles.mapContainer}>
+          <Map style={formStyles.map} currentLocation={currentLocation} />
+        </View>
         <TouchableOpacity style={formStyles.button} onPress={handlePlaceSubmit}>
-          <Button title="Post Place" />
+          <Button onPress={handlePlaceSubmit} title="Post Place" />
         </TouchableOpacity>
       </View>
     );
@@ -238,35 +244,39 @@ const formStyles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center", // Center the content horizontally
+    alignItems: "center",
     paddingTop: Constants.statusBarHeight,
     backgroundColor: "white",
-    padding: 16, // Increased padding for better spacing
+    padding: 16,
   },
   title: {
-    fontSize: 32, // Larger font size for the title
+    fontSize: 32,
     fontWeight: "bold",
-    color: "#3FC1C0", // White text color
-    marginBottom: 10, // Add spacing between title and text
+    color: "#3FC1C0",
   },
   text: {
-    fontSize: 18, // Smaller font size for the text
-    color: "#3FC1C0", // White text color
-    marginBottom: 20, // Add spacing between text and image
+    fontSize: 18,
+    color: "#3FC1C0",
+    marginTop: 20,
   },
   image: {
     width: 200,
     height: 200,
     resizeMode: "cover",
     borderRadius: 10,
-    marginBottom: 20, 
+    marginTop: 20,
   },
   button: {
     color: "#3FC1C0",
     backgroundColor: "#3FC1C0",
-    marginTop: 10,
+    marginTop: 20,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
+  },
+  mapContainer: {
+    flex: 3,
+    alignItems: "center",
+    marginTop: 20,
   },
 });

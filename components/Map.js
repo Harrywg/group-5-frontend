@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import * as Location from "expo-location";
-import MapView, { Circle } from "react-native-maps";
+import MapView, { Circle, Marker } from "react-native-maps";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { getPlaces } from "../api";
 export default function Map(props) {
@@ -105,6 +105,15 @@ export default function Map(props) {
             ></Circle>
           );
         })}
+        {currentLocation && (
+          <Marker
+            coordinate={{
+              latitude: currentLocation.latitude,
+              longitude: currentLocation.longitude,
+            }}
+            title="Current Location"
+          />
+        )}
       </MapView>
     </View>
   );
