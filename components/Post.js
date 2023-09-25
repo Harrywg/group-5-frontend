@@ -10,8 +10,10 @@ import {
 import Constants from "expo-constants";
 import { Camera, CameraType } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
+import * as Location from "expo-location";
 import { MaterialIcons, Entypo } from "@expo/vector-icons";
 import mainStyles from "../styles/mainStyles";
+import { postPlace } from "../api";
 
 export default function PostPlace() {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
@@ -21,12 +23,19 @@ export default function PostPlace() {
   const [submittedImage, setSubmittedImage] = useState(false);
   const cameraRef = useRef(null);
   const [placeName, setPlaceName] = useState(null);
+  const [location, setLocation] = useState(null);
 
   useEffect(() => {
     (async () => {
       MediaLibrary.requestPermissionsAsync();
       const cameraStatus = await Camera.requestCameraPermissionsAsync();
       setHasCameraPermission(cameraStatus.status === "granted");
+
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status === "granted") {
+        const locationData = await Location.getCurrentPositionAsync({});
+        setLocation(locationData.coords);
+      }
     })();
   }, []);
 
@@ -56,7 +65,13 @@ export default function PostPlace() {
   const handlePlaceSubmit = async () => {
     try {
       alert("Place submitted! 🎉");
-
+      console.log(image,'image')
+      postPlace({
+          placeName: placeName,
+          coordinates: [location.latitude, location.longitude],
+          creator: "DevUser1",
+          imgURL: image,
+      })
       setSubmittedImage(false);
       setImage(null);
     } catch (error) {
