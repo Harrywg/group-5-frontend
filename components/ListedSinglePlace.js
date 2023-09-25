@@ -38,9 +38,9 @@ export default function ListedSinglePlace({
           <Text style={styles.countdown}>
             {place.countdown === "Event has finished"
               ? "Event has finished"
-              : `Time remaining:  ${timeLeft}`}
+              : `${timeLeft}`}
           </Text>
-          <Text style={styles.distance}>{`Distance: ${distance} km`}</Text>
+          <Text style={styles.distance}>{`${distance} km`}</Text>
         </View>
         <Image style={styles.image} source={{ uri: place.imgURL }} />
       </View>

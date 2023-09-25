@@ -152,7 +152,8 @@ export default function HomePage() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 200,
+    gap: 20,
+    paddingTop: 20,
   },
   contentContainer: {
     backgroundColor: "white",
@@ -165,7 +166,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     padding: 7,
     margin: 2,
-    backgroundColor: "#eee",
+    backgroundColor: "#3FC1C0",
+    borderWidth: 4,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
   },
   itemContent: {
     flexDirection: "row",
@@ -177,7 +183,7 @@ const styles = StyleSheet.create({
   expiredCountdown: {
     backgroundColor: "red",
     borderWidth: 5,
-    padding: 16,
+    padding: 10,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     borderBottomLeftRadius: 20,

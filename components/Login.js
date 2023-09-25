@@ -2,6 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useState, useEffect, useMemo, useContext } from "react";
 import { getUsersByUsername } from "../api";
 import { useAuth } from "../context";
+import Logo from "./Logo";
 import {
   Text,
   View,
@@ -10,6 +11,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
+
 
 
 export default function Login() {
@@ -35,6 +37,7 @@ export default function Login() {
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
+      <Logo />
       <View style={styles.inputContainer}>
         <TextInput
           placeholder="Username"
