@@ -42,24 +42,26 @@ export default function Profile({ navigation }) {
           src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
           style={styles.avatar}
         />
+        
         <Text style={styles.username}>{user.username}</Text>
-        <Text style={mainStyles.text}>Gold: {user?.achievements?.gold}</Text>
-        <Text style={mainStyles.text}>
-          Silver: {user?.achievements?.silver}
-        </Text>
-        <Text style={mainStyles.text}>
-          Bronze: {user?.achievements?.bronze}
-        </Text>
-        <Text style={mainStyles.text}>
+        <Text>
           Joined {new Date(user.createdAt).toLocaleString().split(",")[0]}
         </Text>
-        <TouchableOpacity onPress={handleLogout} style={""}>
+        <Text>Gold: {user?.achievements?.gold}</Text>
+        <Text>
+          Silver: {user?.achievements?.silver}
+        </Text>
+        <Text>
+          Bronze: {user?.achievements?.bronze}
+        </Text>
+    
+        <TouchableOpacity style={styles.button} onPress={handleLogout} >
           <Text style={styles.buttonText}>Edit Profile</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={handleLogout} style={""}>
-          <Text style={styles.buttonText}>Log Out</Text>
+        <TouchableOpacity style={styles.button} onPress={handleLogout} >
+            <Text style={styles.buttonText}>Log Out</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={handleDelete} style={""}>
+        <TouchableOpacity style={styles.button} onPress={handleDelete}>
           <Text style={styles.buttonText}>Delete Account</Text>
         </TouchableOpacity>
       </View>
@@ -69,15 +71,14 @@ export default function Profile({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#180131",
     height: "100%",
     paddingTop: 50,
     paddingHorizontal: 20,
   },
   avatar: {
-    height: 100,
-    width: 100,
-    borderRadius: 50,
+    height: 150,
+    width: 150,
+    borderRadius: 75,
   },
   profile: {
     flex: 1,
@@ -87,15 +88,17 @@ const styles = StyleSheet.create({
   },
   username: {
     fontWeight: "bold",
-    color: "white",
-    fontSize: 20,
+    fontSize: 30,
   },
   buttonText: {
     color: "black",
     fontWeight: "bold",
-    borderWidth: 2,
-    backgroundColor: "white",
-    paddingLeft: 5,
-    paddingRight: 5,
+    color:'white'
   },
+  button: {
+    backgroundColor: "#3FC1C0",
+    borderRadius: 1000,
+    padding: 10,
+    paddingHorizontal: 20,
+  }
 });
