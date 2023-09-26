@@ -102,19 +102,19 @@ export default function Map(props) {
                 longitude,
               }}
               radius={100}
-              fillColor="blue"
+              fillColor="rgba(0, 0, 255, 0.3)"
             />
           );
         })}
 
-{selectedPlace && (
+        {selectedPlace && (
           <Circle
             center={{
               latitude: selectedPlace.coordinates[0],
               longitude: selectedPlace.coordinates[1],
             }}
             radius={100}
-            fillColor="blue"
+            fillColor="rgba(0, 0, 255, 0.3)"
           />
         )}
 

@@ -17,7 +17,6 @@ export default function Profile({ navigation }) {
   const handleDelete = async () => {
     try {
       const loggedInUser = user;
-      console.log(loggedInUser._id, "LIU");
       const userDeleted = await deleteUser(loggedInUser._id);
       if (userDeleted) {
         console.log("User deleted");
