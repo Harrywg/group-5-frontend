@@ -51,7 +51,7 @@ function MainPages() {
           }
           return <Ionic name={iconName} size={adjustedSize} color={color} />;
         },
-        tabBarLabel: false
+        tabBarLabel: false,
       })}
     >
       <Tab.Screen name="HomePage" component={HomePage} />
