@@ -15,3 +15,7 @@ export const getPlaces = () => {
 export const getUsersByUsername = (username) => {
   return api.get(`/users/username/${username}`).then(({ data }) => data);
 };
+
+export const postUsers = (userData) => {
+  return api.post("/users", userData).then(({ data }) => data);
+};
