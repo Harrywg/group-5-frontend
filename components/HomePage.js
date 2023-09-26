@@ -85,7 +85,10 @@ export default function HomePage() {
   useEffect(() => {
     const fetchPlaces = async () => {
       try {
-        const fetchedPlaces = await getOrderedPlaces(currentLocation.latitude, currentLocation.longitude);
+        const fetchedPlaces = await getOrderedPlaces(
+          currentLocation.latitude,
+          currentLocation.longitude
+        );
         setPlaces(fetchedPlaces);
       } catch (error) {
         console.error("Error fetching places:", error);
@@ -202,6 +205,7 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   text: {
+    textAlign: "center",
     fontSize: 16,
     fontWeight: "bold",
     marginBottom: 4,
