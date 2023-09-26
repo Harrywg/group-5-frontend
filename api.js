@@ -24,8 +24,7 @@ export const postPlace = (newPlace) => {
   return api.post(`/places`, newPlace).then(({ data }) => data);
 };
 
-export const postGuess = (id, lat, lon) => {
-  return api
-    .post(`/places/${id}/guesses?lat=${lat}&lon=${lon}`)
-    .then(({ data }) => data);
+export const postGuess = (id, guess) => {
+  console.log(guess);
+  return api.post(`/places/${id}/guesses`, guess).then(({ data }) => data);
 };
