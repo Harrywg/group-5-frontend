@@ -102,6 +102,23 @@ export default function SubmittedGuess() {
         >
           <Text style={{ color: "white" }}>Back</Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            marginTop: 20,
+            backgroundColor: "#3FC1C0",
+            fontWeight: 800,
+            borderRadius: 1000,
+            padding: 10,
+            paddingHorizontal: 20,
+            width: "auto",
+            zIndex: 100,
+          }}
+          onPress={() => {
+            navigation.navigate("HomePage");
+          }}
+        >
+          <Text style={{ color: "white" }}>Home</Text>
+        </TouchableOpacity>
       </View>
     );
   }

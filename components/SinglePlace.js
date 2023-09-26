@@ -148,9 +148,10 @@ export default function SinglePlace() {
               flex: 1,
             }}
           >
-            {selectedPlace.guesses.map((guess) => {
+            {selectedPlace.guesses.map((guess, i) => {
               return (
                 <View
+                  key={i}
                   style={{
                     borderStyle: "solid",
                     borderWidth: 1,
