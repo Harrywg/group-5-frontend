@@ -105,7 +105,7 @@ export default function Map(props) {
             ></Circle>
           );
         })}
-        {currentLocation && (
+        {/* {currentLocation && (
           <Marker
             coordinate={{
               latitude: currentLocation.latitude,
@@ -113,7 +113,7 @@ export default function Map(props) {
             }}
             title="Current Location"
           />
-        )}
+        )} */}
       </MapView>
     </View>
   );
