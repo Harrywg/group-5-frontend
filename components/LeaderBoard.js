@@ -1,7 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { Text, View, Image } from "react-native";
-import mainStyles from "../styles/mainStyles";
 import { getUsers } from "../api";
 import { StyleSheet } from "react-native";
 
@@ -25,15 +24,17 @@ export default function LeaderBoard() {
   usersWithPoints.map((user) => {
   user.points=(user.achievements.bronze*25)+(user.achievements.silver*50)+(user.achievements.gold*100)
   })
+
+
     
   return (
     <View style={styles.container}>
-      {usersWithPoints.sort((a,b)=>b.points-a.points).map((user, i) => {
+      {usersWithPoints.sort((a,b)=>b.points-a.points).slice(0,10).map((user, i) => {
         return (
           <View key={user._id} style={styles.leaderBoard}>
             <Image src={user.avatar_URL} style={styles.avatar}/>
             <Text style={styles.name}>
-              {++i}. {user.username}
+              {++i}.  {user.username}
             </Text>
             <Text style={styles.points} >
               {user.points}
@@ -48,33 +49,39 @@ export default function LeaderBoard() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#180131",
     height: "100%",
-    paddingTop: 50,
-    paddingHorizontal: 30,
+    paddingTop: 75,
+    paddingBottom:10,
+    paddingHorizontal: 20,
+    gap:5
     
   },
   leaderBoard: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent:"space-between"
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: "#3FC1C0",
+    borderRadius: 15,
   },
   avatar: {
-    height: 40,
-    width: 40,
+    height: 45,
+    width: 45,
     backgroundColor: 'white',
-    marginRight: 30,
+    marginRight: 20,
+    marginLeft:10,
     borderRadius: 50,
   },
   name: {
     fontSize: 20,
-    color: 'white',
     flex: 1,
-    justifyContent:"flex-start"
   },
   points: {
     fontWeight: "bold",
-    color: "white",
-    fontSize: 20,
+    fontSize: 25,
+    paddingRight: 15,
+    color: "#3FC1C0",
+
   },
 });
