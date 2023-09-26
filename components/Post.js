@@ -191,7 +191,7 @@ function Button({ title, onPress, icon, color }) {
     </TouchableOpacity>
   );
 }
-
+//camera stylesheet
 const styles = StyleSheet.create({
   container: {
     flex: 1,
