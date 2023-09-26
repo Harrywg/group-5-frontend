@@ -3,6 +3,7 @@ import { useState, useEffect, useMemo, useContext } from "react";
 import { getUsersByUsername, postUsers, getUsers } from "../api";
 import { useAuth } from "../context";
 import Logo from "./Logo";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import {
   Text,
   View,
@@ -46,8 +47,6 @@ export default function Login() {
         setUserExists(false);
         const newUserObject = { username: newUser };
         await postUsers(newUserObject);
-        setRegistrationMessage("User registered successfully");
-        // Automatically log in the user after successful registration
         const userData = await getUsersByUsername(newUser);
         if (userData) {
           login(userData);
@@ -64,7 +63,12 @@ export default function Login() {
   };
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="padding">
+    <KeyboardAwareScrollView
+      style={{ backgroundColor: "#CCDCDC" }}
+      resetScrollToCoords={{ x: 0, y: 0 }}
+      contentContainerStyle={styles.container}
+      scrollEnabled={false}
+    >
       <Logo style={styles.logo} />
       <View style={styles.inputContainer}>
         <TextInput
@@ -99,7 +103,7 @@ export default function Login() {
           <Text style={styles.buttonOutlineText}>Register</Text>
         </TouchableOpacity>
       </View>
-    </KeyboardAvoidingView>
+    </KeyboardAwareScrollView>
   );
 }
 
@@ -122,7 +126,7 @@ const styles = StyleSheet.create({
   inputError: {
     backgroundColor: "white",
     borderWidth: 2,
-    borderColor: 'red',
+    borderColor: "red",
     paddingHorizontal: 15,
     paddingVertical: 10,
     borderRadius: 10,
@@ -135,7 +139,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   button: {
-    backgroundColor: "#0782F9",
+    backgroundColor: "#3FC1C0",
     width: "100%",
     padding: 15,
     marginTop: 10,
@@ -145,7 +149,7 @@ const styles = StyleSheet.create({
   buttonOutline: {
     backgroundColor: "white",
     marginTop: 10,
-    borderColor: "#0782F9",
+    borderColor: "#3FC1C0",
     borderWidth: 2,
   },
   buttonText: {
@@ -154,7 +158,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   buttonOutlineText: {
-    color: "#0782F9",
+    color: "#3FC1C0",
     fontWeight: "700",
     fontSize: 16,
   },
