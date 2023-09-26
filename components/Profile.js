@@ -5,14 +5,35 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { StyleSheet } from "react-native";
 import { useAuth } from "../context";
+import { deleteUser, updateUsers } from "../api";
 
+export default function Profile({ navigation }) {
+  const { user } = useAuth();
+  console.log(user, "USER");
 
-export default function Profile({navigation}) {
-const { user } = useAuth();
+  const handleLogout = () => {
+    navigation.navigate("Login");
+  };
+  const handleDelete = async () => {
+    try {
+      const loggedInUser = user;
+      console.log(loggedInUser._id, "LIU");
+      const userDeleted = await deleteUser(loggedInUser._id);
+      if (userDeleted) {
+        console.log("User deleted");
+        navigation.navigate("Login");
+      } else {
+        console.log("User deletion failed");
+      }
+    } catch (error) {
+      console.error("Error deleting user", error);
+      if (error.response) {
+        console.error("Error response:", error.response.data);
+      }
+    }
+  };
 
-const handleLogout = () => {
-navigation.navigate("Login")
-}
+  const handleEdit = async () => {};
 
   return (
     <View style={styles.container}>
@@ -38,7 +59,7 @@ navigation.navigate("Login")
         <TouchableOpacity onPress={handleLogout} style={""}>
           <Text style={styles.buttonText}>Log Out</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={handleLogout} style={""}>
+        <TouchableOpacity onPress={handleDelete} style={""}>
           <Text style={styles.buttonText}>Delete Account</Text>
         </TouchableOpacity>
       </View>
