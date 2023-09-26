@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import { useState, useEffect, useMemo, useContext } from "react";
+import { useState } from "react";
 import { getUsersByUsername, postUsers } from "../api";
 import { useAuth } from "../context";
 import Logo from "./Logo";
@@ -17,6 +17,7 @@ export default function Login() {
   const [newUser, setNewUser] = useState("");
   const [username, setUsername] = useState("");
   const [userExists, setUserExists] = useState(true);
+  const [registrationMessage, setRegistrationMessage] = useState(""); // Message to display after registration
   const { login } = useAuth();
   const navigation = useNavigation();
 
@@ -34,19 +35,24 @@ export default function Login() {
     setLoading(false);
   };
 
-
   const handleRegister = async () => {
     setLoading(true);
     try {
-      const userExists = await getUsersByUsername(newUser);
-      if (userExists) {
+      const userExistsData = await getUsersByUsername(newUser);
+      if (userExistsData) {
         setUserExists(true);
-        console.error("Username already exists. Please choose another.");
+        setRegistrationMessage("Username already exists. Please choose another.");
       } else {
         setUserExists(false);
         const newUserObject = { username: newUser };
         await postUsers(newUserObject);
-        console.log("User registered successfully");
+        setRegistrationMessage("User registered successfully");
+        // Automatically log in the user after successful registration
+        const userData = await getUsersByUsername(newUser);
+        if (userData) {
+          login(userData);
+          navigation.navigate("MainPages");
+        }
       }
     } catch (error) {
       console.error("Error registering user", error);
@@ -56,6 +62,7 @@ export default function Login() {
     }
     setLoading(false);
   };
+
 
 
   return (
