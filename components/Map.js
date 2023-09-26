@@ -141,6 +141,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "white",
+    textAlign:"center",
   },
   returnButton: {
     position: "absolute",
@@ -149,7 +150,8 @@ const styles = StyleSheet.create({
     zIndex: 1000,
     height: 50,
     width: 100,
-    backgroundColor: "blue",
+    backgroundColor: "#3FC1C0",
     justifyContent: "center",
+    borderRadius: 1000,
   },
 });
