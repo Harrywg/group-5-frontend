@@ -177,7 +177,7 @@ export default function PostPlace() {
           <Map style={formStyles.map} currentLocation={currentLocation} />
         </View>
         <TouchableOpacity style={formStyles.button} onPress={handlePlaceSubmit}>
-          <Button onPress={handlePlaceSubmit} title="Post Place" />
+          <Button style={formStyles.button} onPress={handlePlaceSubmit} title="Post Place" />
         </TouchableOpacity>
       </View>
     );
@@ -215,7 +215,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
     color: "white",
-    marginLeft: 10,
   },
   camera: {
     flex: 5,
@@ -273,6 +272,7 @@ const formStyles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
+    MarginLeft:0,
   },
   mapContainer: {
     flex: 3,

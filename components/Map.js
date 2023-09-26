@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import * as Location from "expo-location";
-import MapView, { Circle, Marker } from "react-native-maps";
+import MapView, { Circle } from "react-native-maps";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { getPlaces } from "../api";
+
 export default function Map(props) {
   const {
     specificLocation,
@@ -95,23 +96,24 @@ export default function Map(props) {
           return (
             <Circle
               key={_id}
-              ref={circleRef}
               center={{
                 latitude,
                 longitude,
               }}
               radius={100}
               fillColor="blue"
-            ></Circle>
+            />
           );
         })}
+
         {currentLocation && (
-          <Marker
-            coordinate={{
+          <Circle
+            center={{
               latitude: currentLocation.latitude,
               longitude: currentLocation.longitude,
             }}
-            title="Current Location"
+            radius={10} 
+            fillColor="green" 
           />
         )}
       </MapView>
@@ -136,7 +138,6 @@ const styles = StyleSheet.create({
     height: 50,
     width: 100,
     backgroundColor: "blue",
-    justifyContent: "center", // Center text vertically
-    alignItems: "center",
+    justifyContent: "center",
   },
 });
