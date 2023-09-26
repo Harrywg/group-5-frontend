@@ -12,6 +12,8 @@ import mainStyles from "../styles/mainStyles";
 import { useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import Map from "./Map";
+import SubmittedGuess from "./SubmittedGuess";
+import * as Location from "expo-location";
 
 const medals = {
   bronze: require("./img/bronze-medal.png"),
@@ -25,7 +27,10 @@ export default function SinglePlace() {
   const { currentLocation } = route.params;
   const coords = route.params.place.coordinates;
   const navigation = useNavigation();
-
+  const [userLocation, setUserLocation] = useState([
+    currentLocation.latitude,
+    currentLocation.longitude,
+  ]);
   function calculateDistance(lat1, lon1, lat2, lon2) {
     const earthRadius = 6371;
     const lat1Rad = (lat1 * Math.PI) / 180;
@@ -65,9 +70,15 @@ export default function SinglePlace() {
     }
   }
 
+  function onPositionChange({ coords }) {
+    const { latitude, longitude } = coords;
+    setUserLocation([latitude, longitude]);
+  }
+
   const [timeLeft, setTimeLeft] = useState(calculateTime(selectedPlace));
 
   useEffect(() => {
+    Location.watchPositionAsync({ enableHighAccuracy: true }, onPositionChange);
     setInterval(() => {
       setTimeLeft(calculateTime(selectedPlace));
     }, 1000);
@@ -98,7 +109,7 @@ export default function SinglePlace() {
         <TouchableOpacity
           style={styles.submitButton}
           onPress={() => {
-            navigation.goBack();
+            navigation.navigate("SubmittedGuess", { userLocation });
           }}
         >
           <Text style={{ color: "white" }}>Submit Guess</Text>

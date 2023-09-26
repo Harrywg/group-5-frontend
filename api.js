@@ -16,7 +16,6 @@ export const getUsersByUsername = (username) => {
   return api.get(`/users/username/${username}`).then(({ data }) => data);
 };
 
-
 export const postUsers = (userData) => {
   return api.post("/users", userData).then(({ data }) => data);
 };
@@ -25,3 +24,8 @@ export const postPlace = (newPlace) => {
   return api.post(`/places`, newPlace).then(({ data }) => data);
 };
 
+export const postGuess = (id, lat, lon) => {
+  return api
+    .post(`/places/${id}/guesses?lat=${lat}&lon=${lon}`)
+    .then(({ data }) => data);
+};

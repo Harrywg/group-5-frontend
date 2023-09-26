@@ -12,6 +12,7 @@ import { createMaterialBottomTabNavigator } from "@react-navigation/material-bot
 import React from "react";
 import { AuthProvider } from "./context";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import SubmittedGuess from "./components/SubmittedGuess";
 
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -82,6 +83,11 @@ export default function App() {
               name="SinglePlace"
               options={{ headerShown: false }}
               component={SinglePlace}
+            />
+            <Stack.Screen
+              name="SubmittedGuess"
+              options={{ headerShown: false }}
+              component={SubmittedGuess}
             />
           </Stack.Navigator>
         </NavigationContainer>

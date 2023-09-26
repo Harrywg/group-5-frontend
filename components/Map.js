@@ -112,8 +112,8 @@ export default function Map(props) {
               latitude: currentLocation.latitude,
               longitude: currentLocation.longitude,
             }}
-            radius={10} 
-            fillColor="green" 
+            radius={10}
+            fillColor="green"
           />
         )}
       </MapView>
