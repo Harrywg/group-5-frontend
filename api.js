@@ -24,8 +24,10 @@ export const postPlace = (newPlace) => {
   return api.post(`/places`, newPlace).then(({ data }) => data);
 };
 
-export const postGuess = (id, lat, lon) => {
-  return api
-    .post(`/places/${id}/guesses?lat=${lat}&lon=${lon}`)
-    .then(({ data }) => data);
+export const updateUsers = (userId, userData) => {
+  return api.patch(`/users/${userId}`, userData).then(({ data }) => data);
+};
+
+export const deleteUser = (userId) => {
+  return api.delete(`/users/${userId}`);
 };

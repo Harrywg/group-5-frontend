@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
-import { getUsersByUsername, postUsers } from "../api";
+import { useState, useEffect, useMemo, useContext } from "react";
+import { getUsersByUsername, postUsers, getUsers } from "../api";
 import { useAuth } from "../context";
 import Logo from "./Logo";
 import {
@@ -16,8 +16,7 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [newUser, setNewUser] = useState("");
   const [username, setUsername] = useState("");
-  const [userExists, setUserExists] = useState(true);
-  const [registrationMessage, setRegistrationMessage] = useState(""); // Message to display after registration
+  const [userExists, setUserExists] = useState(false);
   const { login } = useAuth();
   const navigation = useNavigation();
 
@@ -36,13 +35,14 @@ export default function Login() {
   };
 
   const handleRegister = async () => {
-    setLoading(true);
     try {
-      const userExistsData = await getUsersByUsername(newUser);
-      if (userExistsData) {
-        setUserExists(true);
-        setRegistrationMessage("Username already exists. Please choose another.");
-      } else {
+      setLoading(true);
+      const allUsers = await getUsers();
+      const mappedUser = allUsers.map((user) => user.username);
+      if (mappedUser.includes(newUser)) {
+        console.error("Username already exists. Please choose another.");
+        setUserExists(true)
+      }else {
         setUserExists(false);
         const newUserObject = { username: newUser };
         await postUsers(newUserObject);
@@ -62,8 +62,6 @@ export default function Login() {
     }
     setLoading(false);
   };
-
-
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
@@ -90,7 +88,7 @@ export default function Login() {
           placeholder="New Username"
           value={newUser}
           onChangeText={(text) => setNewUser(text)}
-          style={userExists ? styles.input : styles.inputError}
+          style={userExists ? styles.inputError : styles.input}
         />
       </View>
       <View style={styles.buttonContainer}>
@@ -122,7 +120,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   inputError: {
-    backgroundColor: "red", 
+    backgroundColor: "white",
+    borderWidth: 2,
+    borderColor: 'red',
     paddingHorizontal: 15,
     paddingVertical: 10,
     borderRadius: 10,
@@ -159,7 +159,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
-
 
 // const styles = StyleSheet.create({
 //   container: {
