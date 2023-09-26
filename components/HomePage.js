@@ -14,7 +14,7 @@ import BottomSheet, {
 } from "@gorhom/bottom-sheet";
 import Map from "./Map";
 import ListedSinglePlace from "./ListedSinglePlace";
-import { getPlaces } from "../api";
+import { getPlaces, getOrderedPlaces } from "../api";
 
 function calculateDistance(lat1, lon1, lat2, lon2) {
   const earthRadius = 6371;
@@ -85,14 +85,14 @@ export default function HomePage() {
   useEffect(() => {
     const fetchPlaces = async () => {
       try {
-        const fetchedPlaces = await getPlaces();
+        const fetchedPlaces = await getOrderedPlaces(currentLocation.latitude, currentLocation.longitude);
         setPlaces(fetchedPlaces);
       } catch (error) {
         console.error("Error fetching places:", error);
       }
     };
     fetchPlaces();
-  }, []);
+  }, [currentLocation]);
 
   const goToSinglePlace = (selectedPlace, currentLocation) => {
     navigation.navigate("SinglePlace", {
