@@ -29,6 +29,8 @@ function MainPages() {
         right: 0,
         left: 0,
       }}
+      activeColor="#3FC1C0" // Color for active tab
+      inactiveColor="black" // Color for inactive tab
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, size, color }) => {
           let iconName;
@@ -49,7 +51,7 @@ function MainPages() {
           }
           return <Ionic name={iconName} size={adjustedSize} color={color} />;
         },
-        tabBarLabel: false,
+        tabBarLabel: false
       })}
     >
       <Tab.Screen name="HomePage" component={HomePage} />
@@ -59,6 +61,7 @@ function MainPages() {
     </Tab.Navigator>
   );
 }
+
 export default function App() {
   return (
     <AuthProvider>
