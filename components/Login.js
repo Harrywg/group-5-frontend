@@ -15,6 +15,7 @@ import {
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
+  const [registerLoading, setRegisterLoading] = useState(false);
   const [newUser, setNewUser] = useState("");
   const [username, setUsername] = useState("");
   const [userExists, setUserExists] = useState(false);
@@ -28,22 +29,26 @@ export default function Login() {
       if (userData) {
         login(userData);
         navigation.navigate("MainPages");
+        setUserExists(true);
+      } else {
+        setUserExists(false);
       }
     } catch (error) {
       console.error("Error checking user", error);
     }
+    setUserExists(false);
     setLoading(false);
   };
 
   const handleRegister = async () => {
     try {
-      setLoading(true);
+      setRegisterLoading(true);
       const allUsers = await getUsers();
       const mappedUser = allUsers.map((user) => user.username);
       if (mappedUser.includes(newUser)) {
         console.error("Username already exists. Please choose another.");
-        setUserExists(true)
-      }else {
+        setUserExists(true);
+      } else {
         setUserExists(false);
         const newUserObject = { username: newUser };
         await postUsers(newUserObject);
@@ -59,7 +64,7 @@ export default function Login() {
         console.error("Error response:", error.response.data);
       }
     }
-    setLoading(false);
+    setRegisterLoading(false);
   };
 
   return (
@@ -75,7 +80,7 @@ export default function Login() {
           placeholder="Username"
           value={username}
           onChangeText={(text) => setUsername(text)}
-          style={styles.input}
+          style={userExists ? styles.inputError : styles.input}
         />
       </View>
       <View style={styles.buttonContainer}>
@@ -100,7 +105,11 @@ export default function Login() {
           onPress={handleRegister}
           style={[styles.button, styles.buttonOutline]}
         >
-          <Text style={styles.buttonOutlineText}>Register</Text>
+          {registerLoading ? (
+            <Text style={styles.buttonOutlineText}>Registering...</Text>
+          ) : (
+            <Text style={styles.buttonOutlineText}>Register</Text>
+          )}
         </TouchableOpacity>
       </View>
     </KeyboardAwareScrollView>
@@ -163,50 +172,3 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: "center",
-//     alignItems: "center",
-//   },
-//   inputContainer: {
-//     width: "80%",
-//   },
-//   input: {
-//     backgroundColor: "white",
-//     paddingHorizontal: 15,
-//     paddingVertical: 10,
-//     borderRadius: 10,
-//     marginTop: 5,
-//   },
-//   buttonContainer: {
-//     width: "60%",
-//     justifyContent: "center",
-//     alignItems: "center",
-//     marginTop: 40,
-//   },
-//   button: {
-//     backgroundColor: "#0782F9",
-//     width: "100%",
-//     padding: 15,
-//     borderRadius: 10,
-//     alignItems: "center",
-//   },
-//   buttonOutline: {
-//     backgroundColor: "white",
-//     marginTop: 5,
-//     borderColor: "#0782F9",
-//     borderWidth: 2,
-//   },
-//   buttonText: {
-//     color: "white",
-//     fontWeight: "700",
-//     fontSize: 16,
-//   },
-//   buttonOutlineText: {
-//     color: "#0782F9",
-//     fontWeight: "700",
-//     fontSize: 16,
-//   },
-// });
