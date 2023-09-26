@@ -13,6 +13,7 @@ export default function Map(props) {
     mapRef,
     placeCoords,
     calculateDistance,
+    selectedPlace,
   } = props;
 
   const [places, setPlaces] = useState([]);
@@ -105,6 +106,17 @@ export default function Map(props) {
             />
           );
         })}
+
+{selectedPlace && (
+          <Circle
+            center={{
+              latitude: selectedPlace.coordinates[0],
+              longitude: selectedPlace.coordinates[1],
+            }}
+            radius={100}
+            fillColor="blue"
+          />
+        )}
 
         {currentLocation && (
           <Circle

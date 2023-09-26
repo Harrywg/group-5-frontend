@@ -103,6 +103,7 @@ export default function SinglePlace() {
             longitudeDelta: 0.01,
           }}
           placeCoords={selectedPlace.coordinates}
+          selectedPlace={selectedPlace}
         />
       </View>
       <View style={styles.details}>
