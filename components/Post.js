@@ -16,6 +16,8 @@ import { MaterialIcons, Entypo } from "@expo/vector-icons";
 import mainStyles from "../styles/mainStyles";
 import { postPlace, getUsers } from "../api";
 import Map from "./Map";
+import { useAuth } from "../context";
+
 
 export default function PostPlace() {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
@@ -29,11 +31,8 @@ export default function PostPlace() {
 
   const currentLocation = location;
 
-  useEffect(() => {
-    getUsers().then((res) => {
-      setUserData(res[0]);
-    });
-  }, []);
+  const { user } = useAuth();
+  console.log(user.username,'USER')
 
   useEffect(() => {
     (async () => {
@@ -77,7 +76,7 @@ export default function PostPlace() {
       alert("Place submitted! 🎉");
       console.log(image, "image");
       postPlace({
-        placeName: `${userData.username}'s Place`,
+        placeName: `${user.username}'s Place`,
         coordinates: [location.latitude, location.longitude],
         creator: `${userData.username}`,
         imgURL: image,
@@ -171,7 +170,7 @@ export default function PostPlace() {
     return (
       <View style={formStyles.container}>
         <Text style={formStyles.title}>Post your place</Text>
-        <Text style={formStyles.text}>{userData.username}'s Place</Text>
+        <Text style={formStyles.text}>{user.username}'s Place</Text>
         <Image source={{ uri: image }} style={styles.image} />
         <View style={formStyles.mapContainer}>
           <Map style={formStyles.map} currentLocation={currentLocation} />
@@ -192,7 +191,7 @@ function Button({ title, onPress, icon, color }) {
     </TouchableOpacity>
   );
 }
-
+//camera stylesheet
 const styles = StyleSheet.create({
   container: {
     flex: 1,
