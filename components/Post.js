@@ -78,7 +78,7 @@ export default function PostPlace() {
       postPlace({
         placeName: `${user.username}'s Place`,
         coordinates: [location.latitude, location.longitude],
-        creator: `${userData.username}`,
+        creator: `${user.username}`,
         imgURL: image,
       });
       setSubmittedImage(false);
