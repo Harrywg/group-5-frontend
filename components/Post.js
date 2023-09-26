@@ -254,7 +254,7 @@ const formStyles = StyleSheet.create({
   },
   text: {
     fontSize: 18,
-    color: "#3FC1C0",
+    color: "black",
     marginTop: 20,
   },
   image: {
@@ -270,8 +270,10 @@ const formStyles = StyleSheet.create({
     marginTop: 20,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 10,
+    borderRadius: 1000,
     MarginLeft:0,
+    paddingLeft:10,
+    paddingRight:10,
   },
   mapContainer: {
     flex: 3,
