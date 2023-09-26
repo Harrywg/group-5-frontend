@@ -109,7 +109,10 @@ export default function SinglePlace() {
         <TouchableOpacity
           style={styles.submitButton}
           onPress={() => {
-            navigation.navigate("SubmittedGuess", { userLocation });
+            navigation.navigate("SubmittedGuess", {
+              userLocation,
+              selectedPlace,
+            });
           }}
         >
           <Text style={{ color: "white" }}>Submit Guess</Text>

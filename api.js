@@ -13,7 +13,9 @@ export const getPlaces = () => {
 };
 
 export const getOrderedPlaces = (lat, lon) => {
-  return api.get(`/places/nearest?lat=${lat}&lon=${lon}`).then(({ data }) => data);
+  return api
+    .get(`/places/nearest?lat=${lat}&lon=${lon}`)
+    .then(({ data }) => data);
 };
 
 export const getUsersByUsername = (username) => {
@@ -34,4 +36,9 @@ export const updateUsers = (userId, userData) => {
 
 export const deleteUser = (userId) => {
   return api.delete(`/users/${userId}`);
+};
+
+export const postGuess = (id, guess) => {
+  console.log(guess);
+  return api.post(`/places/${id}/guesses`, guess).then(({ data }) => data);
 };
