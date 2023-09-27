@@ -11,18 +11,16 @@ export default function ListedSinglePlace({
   goToSinglePlace,
 }) {
   const [timeLeft, setTimeLeft] = useState(calculateCountdown(place));
-  const [userAvatar, setUserAvatar] = useState('')
+  const [userAvatar, setUserAvatar] = useState("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
 
   useEffect(() => {
     setInterval(() => {
       setTimeLeft(calculateCountdown(place));
     }, 1000);
-  }, []);
 
-  useEffect(() => {
-    getUsersByUsername(place.creator).then(({ avatar_URL }) => {
-      console.log(avatar_URL)
-      setUserAvatar(avatar_URL);
+    getUsersByUsername(place.creator).then((body) => {
+      console.log(body)
+      setUserAvatar(body.avatar_URL);
     }).catch((err) => {
       console.error(err)
     })
