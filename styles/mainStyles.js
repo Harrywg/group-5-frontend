@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-const mainColour = "#DBDBDB";
+const mainColour = "#CCDCDC";
 
 export default StyleSheet.create({
   container: {
