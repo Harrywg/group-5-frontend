@@ -59,7 +59,7 @@ export default function HomePage() {
     const { latitude, longitude } = coords;
     const newRegion = { ...currentLocation, latitude, longitude };
     if (coords) setCurrentLocation(newRegion);
-    if (newRegion) mapRef.current.animateToRegion(newRegion, 0);
+    if (newRegion) mapRef?.current?.animateToRegion(newRegion, 0);
   };
   const mapRef = useRef(null);
 
