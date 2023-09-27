@@ -715,7 +715,7 @@ This component does not accept any props.
 
 ## Backend Challenges and Insights
 
-For more information about our back-end API by visit its repo here:
+For more information about our back-end API please visit its repo here:
 <a href="https://github.com/jcainuk/group-5-backend" target="_blank">Back-End GitHub repo</a>
 
 - **Geospatial Sorting:** Implemented a feature that sorts places by their proximity to the user, ensuring that users see the 10 nearest places first.
