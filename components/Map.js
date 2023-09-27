@@ -81,16 +81,6 @@ export default function Map(props) {
         style={{ height: "100%", aspectRatio: "1/1" }}
         onRegionChangeComplete={handleRegionChangeComplete}
       >
-        {userHasScrolled ? (
-          <TouchableOpacity
-            onPress={returnToCurrentLocation}
-            style={styles.returnButton}
-          >
-            <Text style={styles.text}>Return</Text>
-          </TouchableOpacity>
-        ) : (
-          <></>
-        )}
         {places.map(({ coordinates, _id }) => {
           const [latitude, longitude] = coordinates;
           return (
@@ -102,8 +92,6 @@ export default function Map(props) {
               }}
               radius={600}
               fillColor="rgba(63, 193, 192, 0.5)"
-              strokeColor="rgba(63, 193, 192, 1)"
-              strokeWidth={2}
             />
           );
         })}
@@ -116,8 +104,6 @@ export default function Map(props) {
             }}
             radius={600}
             fillColor="rgba(63, 193, 192, 0.5)"
-            strokeColor="rgba(63, 193, 192, 1)"
-            strokeWidth={2}
           />
         )}
 
@@ -127,6 +113,14 @@ export default function Map(props) {
           </Marker>
         )}
       </MapView>
+      {userHasScrolled && (
+        <TouchableOpacity
+          onPress={returnToCurrentLocation}
+          style={styles.returnButton}
+        >
+          <Text style={styles.buttonText}>Return</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 }
@@ -159,5 +153,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#3FC1C0",
     borderColor: "white",
     borderWidth: 2,
+  },
+  buttonText: {
+    color: "white",
+    textAlign: "center",
   },
 });
