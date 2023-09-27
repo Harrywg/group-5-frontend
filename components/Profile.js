@@ -66,11 +66,11 @@ export default function Profile({ navigation }) {
           </View>
           <View style={styles.medalWrap}>
             <Image style={styles.medal} source={medals.silver} />
-            <Text style={styles.medalNumber}>{user?.achievements?.gold}</Text>
+            <Text style={styles.medalNumber}>{user?.achievements?.silver}</Text>
           </View>
           <View style={styles.medalWrap}>
             <Image style={styles.medal} source={medals.bronze} />
-            <Text style={styles.medalNumber}>{user?.achievements?.gold}</Text>
+            <Text style={styles.medalNumber}>{user?.achievements?.bronze}</Text>
           </View>
         </View>
         <View style={styles.buttonWrap}>
