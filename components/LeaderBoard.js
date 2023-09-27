@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     paddingTop: 75,
     paddingBottom:10,
     paddingHorizontal: 20,
-    gap: 5, 
+    gap: 7, 
 
   },
   leaderBoard: {
@@ -100,7 +100,6 @@ const styles = StyleSheet.create({
     marginRight: 10,
     fontWeight: "bold",
     padding: 5,
-    borderWidth: 4,
     borderColor: "#CCDCDC",
     borderRadius:15,
   }
