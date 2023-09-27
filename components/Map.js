@@ -81,16 +81,6 @@ export default function Map(props) {
         style={{ height: "100%", aspectRatio: "1/1" }}
         onRegionChangeComplete={handleRegionChangeComplete}
       >
-        {userHasScrolled ? (
-          <TouchableOpacity
-            onPress={returnToCurrentLocation}
-            style={styles.returnButton}
-          >
-            <Text style={styles.text}>Return</Text>
-          </TouchableOpacity>
-        ) : (
-          <></>
-        )}
         {places.map(({ coordinates, _id }) => {
           const [latitude, longitude] = coordinates;
           return (
@@ -119,13 +109,18 @@ export default function Map(props) {
 
         {currentLocation && (
           <Marker coordinate={currentLocation} anchor={currentLocation}>
-            <Image
-              src={user.avatar_URL}
-              style={styles.marker}
-            />
+            <Image src={user.avatar_URL} style={styles.marker} />
           </Marker>
         )}
       </MapView>
+      {userHasScrolled && (
+        <TouchableOpacity
+          onPress={returnToCurrentLocation}
+          style={styles.returnButton}
+        >
+          <Text style={styles.buttonText}>Return</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 }
@@ -158,5 +153,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#3FC1C0",
     borderColor: "white",
     borderWidth: 2,
+  },
+  buttonText: {
+    color: "white",
+    textAlign: "center",
   },
 });
