@@ -27,8 +27,6 @@ We are a team of five enthusiastic software engineers, and we developed `Picture
 - [Project Description](#project-description)
 - [Features](#features)
 - [Components Overview](#components-overview)
-- [Detailed Component Documentation](#detailed-component-documentation)
-
   - [App](#app)
   - [api](#api)
   - [HomePage](#homepage)
@@ -41,8 +39,13 @@ We are a team of five enthusiastic software engineers, and we developed `Picture
   - [Profile](#profile)
   - [SinglePlace](#singleplace)
   - [SubmittedGuess](#submittedguess)
-
+- [Detailed Component Documentation](#detailed-component-documentation)
 - [Reflections and Key Learnings](#reflections-and-key-learnings)
+  - [Backend Challenges and Insights](#backend-challenges-and-insights)
+  - [Frontend Challenges and Insights](#frontend-challenges-and-insights)
+  - [Working Together (Ways of Working)](#working-together-ways-of-working)
+  - [Technological Transition](#technological-transition)
+  - [React Native Styling](#react-native-styling)
 - [Setup Instructions](#setup-instructions)
   - [Prerequisites](#prerequisites)
   - [Fork and Clone the Repository](#fork-and-clone-the-repository)
@@ -53,13 +56,19 @@ We are a team of five enthusiastic software engineers, and we developed `Picture
 
 # Live Demo
 
+[Back to the Top](#table-of-contents)
+
 Link to demo video TBA...
 
 # Screenshots
 
+[Back to the Top](#table-of-contents)
+
 Screenshots to appear here....
 
 # Technologies Used
+
+[Back to the Top](#table-of-contents)
 
 List of technologies and libraries used in our project's front-end.
 
@@ -91,9 +100,13 @@ List of technologies and libraries used in our project's front-end.
 
 # Project Description
 
+[Back to the Top](#table-of-contents)
+
 `Picture-This-Place` is a React-Native mobile app that promotes local exploration, social engagement, and fun gameplay. Users can create accounts, submit photos of places, and challenge others to guess the location. Points are awarded for correct guesses, and users can compete on leaderboards. It's an interactive way to encourage people to get out of the house, explore their surroundings, and connect with others in their local area.
 
 # Features
+
+[Back to the Top](#table-of-contents)
 
 #### Explore Places
 
@@ -141,6 +154,8 @@ List of technologies and libraries used in our project's front-end.
 - I can see changes in rankings and event statuses as they occur.
 
 # Components Overview
+
+[Back to the Top](#table-of-contents)
 
 Here's an overview of the key components in this project:
 
@@ -220,7 +235,11 @@ Here's an overview of the key components in this project:
 
 # Detailed Component Documentation
 
+[Back to the Top](#table-of-contents)
+
 ## App
+
+[Back to the Top](#table-of-contents)
 
 The `App.js` component is the entry point of the mobile application. It sets up the navigation structure, including tabs and screens for the app.
 
@@ -238,6 +257,8 @@ The `App.js` component is the entry point of the mobile application. It sets up 
 The `App` component is the root component of the application and is typically not imported or used elsewhere in the codebase. It serves as the starting point of the app, defining the navigation structure and providing the authentication context.
 
 ## api
+
+[Back to the Top](#table-of-contents)
 
 #### Description
 
@@ -312,6 +333,8 @@ Ensure that you have a valid backend server URL in the `baseURL` field of the `a
 
 ## HomePage
 
+[Back to the Top](#table-of-contents)
+
 ### Description
 
 The `HomePage.js` component is the main screen of the mobile application. It displays a map showing nearby places and a list of these places in a bottom sheet. Users can interact with the map and access detailed information about each place.
@@ -368,6 +391,8 @@ Ensure that the necessary dependencies are installed and configured for this com
 
 ## LeaderBoard
 
+[Back to the Top](#table-of-contents)
+
 ### Description
 
 The `LeaderBoard.js` component displays the leaderboard of users based on their achievements and points. It ranks users by their points, considering different achievement levels (bronze, silver, and gold).
@@ -417,6 +442,8 @@ Ensure that the API endpoint for fetching user data is correctly configured in `
 
 ## ListedSinglePlace
 
+[Back to the Top](#table-of-contents)
+
 ### Description
 
 The `ListedSinglePlace.js` component represents a single place in a list view, typically used in the homepage. It displays information about a place, including its name, countdown timer, distance from the user's current location, and an image.
@@ -455,6 +482,8 @@ The appearance of the component is controlled by the styles provided through the
 The component relies on the `calculateDistance` and `calculateCountdown` functions to determine distance and countdown values. Ensure these functions are correctly implemented and provided as props when using the component.
 
 ## Login
+
+[Back to the Top](#table-of-contents)
 
 ### Description
 
@@ -499,6 +528,8 @@ None.
 
 ## Logo
 
+[Back to the Top](#table-of-contents)
+
 ### Description
 
 The `Logo.js` component is a simple component responsible for displaying the logo or application name. It serves as a visual representation of the application.
@@ -528,6 +559,8 @@ None.
 - This component is primarily a static element and doesn't contain interactive logic or dynamic content.
 
 ## Map
+
+[Back to the Top](#table-of-contents)
 
 ### Description
 
@@ -570,11 +603,13 @@ The `Map` component is typically used within the application to provide a visual
 
 - This component integrates with location services and requires proper permissions for location access.
 
-### Post
+## Post
+
+[Back to the Top](#table-of-contents)
 
 ### Description
 
-The `PostPlace.js` component is responsible for capturing and posting a user's place with a picture and location information. It integrates with the device's camera and location services to accomplish this.
+The `Post.js` component is responsible for capturing and posting a user's place with a picture and location information. It integrates with the device's camera and location services to accomplish this.
 
 ### Functionality
 
@@ -609,6 +644,8 @@ This component does not accept any props.
 - This component requires proper permissions for camera and location access.
 
 ## Profile
+
+[Back to the Top](#table-of-contents)
 
 ### Description
 
@@ -647,6 +684,8 @@ This component does not accept any props.
 
 ## SinglePlace
 
+[Back to the Top](#table-of-contents)
+
 ### Description
 
 The `SinglePlace.js` component is responsible for displaying detailed information about a single place. It shows the place's location on a map, details about the place, including the creator, distance, remaining time, guesses, and allows the user to submit a guess.
@@ -682,6 +721,8 @@ This component does not accept any props.
 
 ## SubmittedGuess
 
+[Back to the Top](#table-of-contents)
+
 ### Description
 
 The `SubmittedGuess.js` component is responsible for displaying the result of a user's submitted guess for a place. It shows whether the guess was correct or not, the user's distance from the target place, and provides options to navigate back or return to the home page.
@@ -713,7 +754,11 @@ This component does not accept any props.
 
 # Reflections and Key Learnings
 
+[Back to the Top](#table-of-contents)
+
 ## Backend Challenges and Insights
+
+[Back to the Top](#table-of-contents)
 
 For more information about our back-end API please visit its repo here:
 <a href="https://github.com/jcainuk/group-5-backend" target="_blank">Back-End GitHub repo</a>
@@ -726,11 +771,15 @@ For more information about our back-end API please visit its repo here:
 
 ## Frontend Challenges and Insights
 
+[Back to the Top](#table-of-contents)
+
 - **Expo Go Challenges:** Encountered issues with the Expo Go app, which posed initial hurdles in the development process.
 - **Emulator Setup:** Setting up and configuring the emulator for React Native development required extra effort.
 - **Styling in React Native:** Adapting to React Native's unique styling approach, which doesn't rely on traditional stylesheets, was a learning curve.
 
 ## Working Together (Ways of Working)
+
+[Back to the Top](#table-of-contents)
 
 - **Effective Collaboration Tools:** Employed collaborative tools like Trello and Miro to streamline project management and design processes.
 - **Version Control:** GitHub served as the version control platform, facilitating code collaboration and tracking changes.
@@ -738,12 +787,16 @@ For more information about our back-end API please visit its repo here:
 
 ## Technological Transition
 
+[Back to the Top](#table-of-contents)
+
 - **Change in Technology Stack:** Transitioning from a PERN stack (PostgreSQL, Express, React, Node.js) to incorporate React Native for mobile development and MongoDB with Mongoose for the backend introduced us to new technologies.
 - **First-Time Teamwork:** This project marked our first experience working collaboratively as a team. Although we had prior experience working together through pair programming, this project required us to operate as a cohesive unit.
 - **Agile Methodology:** Embraced agile methodologies for project management, emphasizing iterative development and adaptability.
 - **MVP Realism:** One of the critical lessons learned was the importance of keeping our Minimum Viable Product (MVP) realistic and achievable.
 
 ## React Native Styling
+
+[Back to the Top](#table-of-contents)
 
 - **Distinct Styling Approach:** React Native introduces a unique styling approach compared to browser-based development, using inline styles directly within JavaScript objects.
 - **Components as Building Blocks:** React Native relies on components as fundamental building blocks for the user interface, each encapsulating its styles.
@@ -754,6 +807,8 @@ For more information about our back-end API please visit its repo here:
 In summary, our journey in developing this mobile application has been marked by numerous challenges and valuable insights. We successfully navigated the transition to new technologies, learned effective teamwork, embraced agile principles, and realized the significance of maintaining a pragmatic MVP. Additionally, understanding the nuances of React Native styling has equipped us with the skills needed to craft appealing and responsive mobile interfaces. This project has not only expanded our technical horizons but also reinforced the importance of effective collaboration and adaptability in software development.
 
 # Setup Instructions
+
+[Back to the Top](#table-of-contents)
 
 ## Prerequisites
 
@@ -796,6 +851,8 @@ You can use these scripts to run your project on different platforms during deve
 
 # Future Considerations
 
+[Back to the Top](#table-of-contents)
+
 The following features were things we planned to implement if we had had more time:
 
 - **Custom Games:** Envisioned adding a feature that allows users to create personalized games with their friends.
@@ -805,6 +862,8 @@ The following features were things we planned to implement if we had had more ti
 - **Ratings and Reporting:** Exploring the implementation of a ratings and reporting system for places and user interactions.
 
 # Team Members
+
+[Back to the Top](#table-of-contents)
 
 - <a href="https://github.com/Jay7806" target="_blank">James Smith</a>
 - <a href="https://github.com/Harrywg" target="_blank">Harry Ward-Gray</a>
