@@ -1,5 +1,7 @@
 import { TouchableOpacity, View, Text, Image } from "react-native";
 import { useEffect, useState } from "react";
+import { getUsersByUsername } from "../api";
+
 export default function ListedSinglePlace({
   place,
   styles,
@@ -9,6 +11,7 @@ export default function ListedSinglePlace({
   goToSinglePlace,
 }) {
   const [timeLeft, setTimeLeft] = useState(calculateCountdown(place));
+  const [userAvatar, setUserAvatar] = useState('')
 
   useEffect(() => {
     setInterval(() => {
@@ -16,6 +19,14 @@ export default function ListedSinglePlace({
     }, 1000);
   }, []);
 
+  useEffect(() => {
+    getUsersByUsername(place.creator).then(({ avatar_URL }) => {
+      console.log(avatar_URL)
+      setUserAvatar(avatar_URL);
+    }).catch((err) => {
+      console.error(err)
+    })
+  }, []);
 
   const distance = calculateDistance(
     currentLocation.latitude,
@@ -35,6 +46,7 @@ export default function ListedSinglePlace({
     >
       <View style={styles.itemContent}>
         <View style={styles.leftContent}>
+          <Image style={styles.userAvatar} source={{uri: userAvatar}}/>
           <Text style={styles.placeName}>{place.creator}</Text>
           <Text style={styles.countdown}>
             {place.countdown === "Event has finished"
