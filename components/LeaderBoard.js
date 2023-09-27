@@ -29,12 +29,16 @@ export default function LeaderBoard() {
     
   return (
     <View style={styles.container}>
+      <Text style={styles.header}>🏆    leaderboard    🏆</Text>
       {usersWithPoints.sort((a,b)=>b.points-a.points).slice(0,10).map((user, i) => {
         return (
           <View key={user._id} style={styles.leaderBoard}>
+            <Text style={styles.number}>
+              {++i}
+            </Text>
             <Image src={user.avatar_URL} style={styles.avatar}/>
             <Text style={styles.name}>
-              {++i}.  {user.username}
+              {user.username}
             </Text>
             <Text style={styles.points} >
               {user.points}
@@ -53,14 +57,14 @@ const styles = StyleSheet.create({
     paddingTop: 75,
     paddingBottom:10,
     paddingHorizontal: 20,
-    gap:5
-    
+    gap: 5, 
+
   },
   leaderBoard: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    justifyContent:'space-between',
     borderWidth: 2,
     borderColor: "#3FC1C0",
     borderRadius: 15,
@@ -69,13 +73,19 @@ const styles = StyleSheet.create({
     height: 45,
     width: 45,
     backgroundColor: 'white',
-    marginRight: 20,
-    marginLeft:10,
+    marginLeft:40,
     borderRadius: 50,
+    position:'absolute'
   },
   name: {
     fontSize: 20,
-    flex: 1,
+   
+  },
+  number: {
+    fontSize: 20,
+    marginLeft: 10,
+    marginRight:50
+   
   },
   points: {
     fontWeight: "bold",
@@ -84,4 +94,14 @@ const styles = StyleSheet.create({
     color: "#3FC1C0",
 
   },
+  header: {
+    fontSize: 25,
+    textAlign: 'center',
+    marginRight: 10,
+    fontWeight: "bold",
+    padding: 5,
+    borderWidth: 4,
+    borderColor: "#CCDCDC",
+    borderRadius:15,
+  }
 });
