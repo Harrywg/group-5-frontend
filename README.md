@@ -1,10 +1,12 @@
 # Picture-This-Place Mobile App (Front-End)
 
-Welcome to the front-end repo for `Picture-This-Place`, a mobile app that encourages local exploration, social engagement, and gameplay by allowing users to submit photos of places, and others must guess the location in the photo by walking to that place and submitting a guess using their phone coordinates. Users earn points and medals for correct guesses and compete on leaderboards.
+Welcome to the front-end repo for `Picture-This-Place`, a mobile app that encourages local exploration, social engagement, and gameplay by allowing users to submit photos of places, while other users guess the location in the photo by walking to that place and submitting a guess using their own phone coordinates. Users earn points and medals for correct guesses and compete on leaderboards.
 
 ## Link to Picture-This-Place API (Back-End)
 
-Please find the link to the back-end API repo for this project here:
+For the back-end we used Express, Node, MongoDB and Mongoose.
+
+Please find more information about our back-end API by visiting the repo for it here:
 <a href="https://github.com/jcainuk/group-5-backend" target="_blank">Back-End GitHub repo</a>
 
 # The Team
@@ -85,7 +87,7 @@ List of technologies and libraries used in our project's front-end.
 - **react-native-swipe-up-down**: A library for adding swipe up and down gestures to React Native components.
 - **react-native-tab-view**: A library for creating tabbed interfaces in React Native.
 - **react-native-vector-icons**: A library for using vector icons in React Native applications.
-- **vector-icons**: A library for including vector icons in your React Native project.
+- **vector-icons**: A library for including vector icons in our React Native project.
 
 # Project Description
 
@@ -106,7 +108,7 @@ List of technologies and libraries used in our project's front-end.
 #### View Leaderboard
 
 - As a user, I can access the "Leaderboard" to see how my achievements compare to others.
-- I can view rankings based on achievements like gold, silver, and bronze medals.
+- I can view rankings based on total achievement points from gold, silver, and bronze medals.
 
 #### User Authentication
 
@@ -115,17 +117,17 @@ List of technologies and libraries used in our project's front-end.
 
 #### Manage User Profile
 
-- As a user, I can access my profile to view and edit my details.
+- As a user, I can access my profile to view my details.
 - I can see my achievements, including gold, silver, and bronze medals.
 
 #### View Single Place Details
 
 - As a user, I can click on a place to view detailed information.
-- I can see the creator of the place, distance from my current location, and time left for an event.
+- I can see the creator of the place, its distance from my current location, and time left before the event expires.
 
 #### Submit Guesses
 
-- As a user, I can submit my guess coordinates from my phone near a specific place.
+- As a user, I can submit my guess coordinates from my phone when near a specific place.
 - I receive feedback on my guess, including bronze, silver, or gold medals.
 
 #### Interactive Map
@@ -239,7 +241,7 @@ The `App` component is the root component of the application and is typically no
 
 #### Description
 
-`api.js` contains functions for making HTTP requests to the backend server of your mobile application. It uses the Axios library to simplify network requests and manage the base URL for the API.
+`api.js` contains functions for making HTTP requests to the backend server of our mobile application. It uses the Axios library to simplify network requests and manage the base URL for the API.
 
 #### Functions
 
@@ -711,17 +713,45 @@ This component does not accept any props.
 
 # Reflections and Key Learnings
 
-## thing:
+## Backend Challenges and Insights
 
-thing
+For more information about our back-end API by visit its repo here:
+<a href="https://github.com/jcainuk/group-5-backend" target="_blank">Back-End GitHub repo</a>
 
-## thing:
+- **Geospatial Sorting:** Implemented a feature that sorts places by their proximity to the user, ensuring that users see the 10 nearest places first.
+- **Automatic Data Cleanup:** Designed a system where places are automatically deleted after 24 hours to keep the database clean and up-to-date.
+- **User-Place Interactions:** When a user makes a guess on a place, their user document now updates with a medal, reflecting their performance.
+- **TTL Indexes:** Employed Time-to-Live (TTL) indexes in MongoDB to automate the removal of outdated data.
+- **$near Operator:** The use of MongoDB's $near operator was instrumental in querying and sorting nearby places efficiently.
 
-thing
+## Frontend Challenges and Insights
 
-## thing:
+- **Expo Go Challenges:** Encountered issues with the Expo Go app, which posed initial hurdles in the development process.
+- **Emulator Setup:** Setting up and configuring the emulator for React Native development required extra effort.
+- **Styling in React Native:** Adapting to React Native's unique styling approach, which doesn't rely on traditional stylesheets, was a learning curve.
 
-thing
+## Working Together (Ways of Working)
+
+- **Effective Collaboration Tools:** Employed collaborative tools like Trello and Miro to streamline project management and design processes.
+- **Version Control:** GitHub served as the version control platform, facilitating code collaboration and tracking changes.
+- **Communication:** Daily stand-up meetings, pair programming sessions, and regular catch-up calls were vital in ensuring effective communication and project alignment.
+
+## Technological Transition
+
+- **Change in Technology Stack:** Transitioning from a PERN stack (PostgreSQL, Express, React, Node.js) to incorporate React Native for mobile development and MongoDB with Mongoose for the backend introduced us to new technologies.
+- **First-Time Teamwork:** This project marked our first experience working collaboratively as a team. Although we had prior experience working together through pair programming, this project required us to operate as a cohesive unit.
+- **Agile Methodology:** Embraced agile methodologies for project management, emphasizing iterative development and adaptability.
+- **MVP Realism:** One of the critical lessons learned was the importance of keeping our Minimum Viable Product (MVP) realistic and achievable.
+
+## React Native Styling
+
+- **Distinct Styling Approach:** React Native introduces a unique styling approach compared to browser-based development, using inline styles directly within JavaScript objects.
+- **Components as Building Blocks:** React Native relies on components as fundamental building blocks for the user interface, each encapsulating its styles.
+- **Flexbox for Layouts:** Adopted the Flexbox layout model as the primary means of arranging UI components, offering responsiveness and adaptability.
+- **Platform-Specific Styling:** React Native allows for platform-specific styling, enabling customization while adhering to platform design guidelines.
+- **Third-Party Libraries:** Explored third-party libraries tailored for React Native to simplify styling and enhance visual aesthetics.
+
+In summary, our journey in developing this mobile application has been marked by numerous challenges and valuable insights. We successfully navigated the transition to new technologies, learned effective teamwork, embraced agile principles, and realized the significance of maintaining a pragmatic MVP. Additionally, understanding the nuances of React Native styling has equipped us with the skills needed to craft appealing and responsive mobile interfaces. This project has not only expanded our technical horizons but also reinforced the importance of effective collaboration and adaptability in software development.
 
 # Setup Instructions
 
@@ -768,11 +798,11 @@ You can use these scripts to run your project on different platforms during deve
 
 The following features were things we planned to implement if we had had more time:
 
-- [ ] test
-- [ ] test
-- [ ] test
-- [ ] test
-- [ ] test
+- **Custom Games:** Envisioned adding a feature that allows users to create personalized games with their friends.
+- **UX/UI Improvements:** Enhancing the user experience (UX) and user interface (UI) remains a top priority for future iterations.
+- **User Authentication:** Implementing user authentication to secure user data and provide personalized experiences.
+- **User Statistics:** Aimed to provide users with more detailed statistics, such as viewing the places they've guessed on in their profiles.
+- **Ratings and Reporting:** Exploring the implementation of a ratings and reporting system for places and user interactions.
 
 # Team Members
 
