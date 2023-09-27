@@ -102,6 +102,8 @@ export default function Map(props) {
               }}
               radius={600}
               fillColor="rgba(63, 193, 192, 0.5)"
+              strokeColor="rgba(63, 193, 192, 1)"
+              strokeWidth={2}
             />
           );
         })}
@@ -114,15 +116,14 @@ export default function Map(props) {
             }}
             radius={600}
             fillColor="rgba(63, 193, 192, 0.5)"
+            strokeColor="rgba(63, 193, 192, 1)"
+            strokeWidth={2}
           />
         )}
 
         {currentLocation && (
           <Marker coordinate={currentLocation} anchor={currentLocation}>
-            <Image
-              src={user.avatar_URL}
-              style={styles.marker}
-            />
+            <Image src={user.avatar_URL} style={styles.marker} />
           </Marker>
         )}
       </MapView>
