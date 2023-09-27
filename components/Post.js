@@ -171,7 +171,7 @@ export default function PostPlace() {
       <View style={formStyles.container}>
         <Text style={formStyles.title}>Post your place</Text>
         <Text style={formStyles.text}>{user.username}'s Place</Text>
-        <Image source={{ uri: image }} style={styles.image} />
+        <Image source={{ uri: image }} style={formStyles.image} />
         <View style={formStyles.mapContainer}>
           <Map style={formStyles.map} currentLocation={currentLocation} />
         </View>
@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   image: {
-    width: 200,
+    width: 20,
     height: 200,
     resizeMode: "cover",
     borderRadius: 10,
@@ -250,7 +250,7 @@ const formStyles = StyleSheet.create({
   title: {
     fontSize: 32,
     fontWeight: "bold",
-    color: "#3FC1C0",
+    color: "black",
   },
   text: {
     fontSize: 18,
@@ -258,26 +258,35 @@ const formStyles = StyleSheet.create({
     marginTop: 20,
   },
   image: {
-    width: 200,
-    height: 200,
+    width: 250,
+    height: 250,
     resizeMode: "cover",
     borderRadius: 10,
     marginTop: 20,
   },
   button: {
     color: "#3FC1C0",
-    backgroundColor: "#3FC1C0",
     marginTop: 20,
-    justifyContent: "center",
-    alignItems: "center",
+    backgroundColor: "#3FC1C0",
+    fontWeight: 800,
     borderRadius: 1000,
-    MarginLeft:0,
-    paddingLeft:10,
-    paddingRight:10,
+    padding: 10,
+    paddingHorizontal: 20,
+    width: "auto",
+    zIndex: 100,
   },
   mapContainer: {
     flex: 3,
     alignItems: "center",
     marginTop: 20,
+    height: 250,
+    width: 250,
+    borderRadius: 10,
+    overflow: "hidden",
+
   },
+  map: {
+    height: '100%',
+    width: '100%',
+  }
 });
