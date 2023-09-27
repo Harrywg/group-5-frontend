@@ -69,7 +69,7 @@ export default function Login() {
 
   return (
     <KeyboardAwareScrollView
-      style={{ backgroundColor: "#CCDCDC" }}
+      style={{ backgroundColor: "#DBDBDB" }}
       resetScrollToCoords={{ x: 0, y: 0 }}
       contentContainerStyle={styles.container}
       scrollEnabled={false}

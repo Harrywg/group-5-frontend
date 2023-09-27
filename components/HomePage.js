@@ -167,14 +167,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    padding: 7,
-    margin: 2,
+    margin: 7,
     backgroundColor: "#3FC1C0",
-    borderWidth: 4,
+    // borderWidth: 1,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
+    overflow: "hidden",
   },
   itemContent: {
     flexDirection: "row",
@@ -182,11 +182,11 @@ const styles = StyleSheet.create({
   },
   leftContent: {
     flex: 1,
+    padding: 25,
   },
   expiredCountdown: {
     backgroundColor: "red",
     borderWidth: 5,
-    padding: 10,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     borderBottomLeftRadius: 20,
@@ -195,14 +195,23 @@ const styles = StyleSheet.create({
     padding: 7,
     margin: 2,
   },
+  distance: {
+    fontSize: 16,
+    color: "white",
+  },
+  attempt: {
+    fontSize: 16,
+    color: "white",
+  },
   countdown: {
-    fontSize: 14,
-    color: "black",
+    color: "white",
+    fontSize: 16,
   },
   placeName: {
-    fontSize: 16,
     fontWeight: "bold",
     marginBottom: 4,
+    fontSize: 18,
+    color: "white",
   },
   text: {
     textAlign: "center",

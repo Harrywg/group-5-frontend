@@ -101,8 +101,8 @@ export default function Map(props) {
                 latitude,
                 longitude,
               }}
-              radius={100}
-              fillColor="rgba(0, 0, 255, 0.3)"
+              radius={600}
+              fillColor="rgba(63, 193, 192, 0.5)"
             />
           );
         })}
@@ -113,8 +113,8 @@ export default function Map(props) {
               latitude: selectedPlace.coordinates[0],
               longitude: selectedPlace.coordinates[1],
             }}
-            radius={100}
-            fillColor="rgba(0, 0, 255, 0.3)"
+            radius={600}
+            fillColor="rgba(63, 193, 192, 0.5)"
           />
         )}
 

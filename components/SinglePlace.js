@@ -99,8 +99,8 @@ export default function SinglePlace() {
           specificLocation={{
             latitude: coords[0],
             longitude: coords[1],
-            latitudeDelta: 0.01,
-            longitudeDelta: 0.01,
+            latitudeDelta: 0.02,
+            longitudeDelta: 0.02,
           }}
           placeCoords={selectedPlace.coordinates}
           selectedPlace={selectedPlace}
