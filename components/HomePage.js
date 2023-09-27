@@ -16,6 +16,7 @@ import Map from "./Map";
 import ListedSinglePlace from "./ListedSinglePlace";
 import { getPlaces, getOrderedPlaces } from "../api";
 
+
 function calculateDistance(lat1, lon1, lat2, lon2) {
   const earthRadius = 6371;
   const lat1Rad = (lat1 * Math.PI) / 180;
@@ -128,6 +129,8 @@ export default function HomePage() {
     stiffness: 800,
   });
 
+
+
   return (
     <View style={mainStyles.container}>
       <Map
@@ -198,6 +201,7 @@ const styles = StyleSheet.create({
   },
   leftContent: {
     flex: 1,
+    flexDirection:'',
     padding: 25,
   },
   expiredCountdown: {
@@ -239,5 +243,12 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150,
     resizeMode: "cover",
+  },
+  userAvatar: {
+    width: 35,
+    height: 35,
+    borderRadius: 50,
+    borderWidth: 1,
+    borderColor: 'white',
   },
 });
