@@ -16,14 +16,13 @@ import Map from "./Map";
 import ListedSinglePlace from "./ListedSinglePlace";
 import { getPlaces, getOrderedPlaces } from "../api";
 
-
 function calculateDistance(lat1, lon1, lat2, lon2) {
   const earthRadius = 6371;
   const lat1Rad = (lat1 * Math.PI) / 180;
   const lon1Rad = (lon1 * Math.PI) / 180;
   const lat2Rad = (lat2 * Math.PI) / 180;
   const lon2Rad = (lon2 * Math.PI) / 180;
- 
+
   const latDiff = lat2Rad - lat1Rad;
   const lonDiff = lon2Rad - lon1Rad;
 
@@ -97,22 +96,22 @@ export default function HomePage() {
     fetchPlaces();
   }, [currentLocation]);
 
-    useFocusEffect(
-      useCallback(() => {
-        const fetchPlaces = async () => {
-          try {
-            const fetchedPlaces = await getOrderedPlaces(
-              currentLocation.latitude,
-              currentLocation.longitude
-            );
-            setPlaces(fetchedPlaces);
-          } catch (error) {
-            console.error("Error fetching places:", error);
-          }
-        };
-        fetchPlaces();
-      }, [currentLocation])
-    );
+  useFocusEffect(
+    useCallback(() => {
+      const fetchPlaces = async () => {
+        try {
+          const fetchedPlaces = await getOrderedPlaces(
+            currentLocation.latitude,
+            currentLocation.longitude
+          );
+          setPlaces(fetchedPlaces);
+        } catch (error) {
+          console.error("Error fetching places:", error);
+        }
+      };
+      fetchPlaces();
+    }, [currentLocation])
+  );
 
   const goToSinglePlace = (selectedPlace, currentLocation) => {
     navigation.navigate("SinglePlace", {
@@ -128,8 +127,6 @@ export default function HomePage() {
     restSpeedThreshold: 0.1,
     stiffness: 800,
   });
-
-
 
   return (
     <View style={mainStyles.container}>
@@ -155,7 +152,7 @@ export default function HomePage() {
           {places.map((place, i) => {
             return (
               <ListedSinglePlace
-                key={i}
+                key={place._id}
                 place={place}
                 styles={styles}
                 calculateDistance={calculateDistance}
@@ -180,6 +177,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     backgroundColor: "white",
     padding: 16,
+    paddingHorizontal: 5,
     shadowColor: "#000",
   },
   itemContainer: {
@@ -201,7 +199,7 @@ const styles = StyleSheet.create({
   },
   leftContent: {
     flex: 1,
-    flexDirection:'',
+    flexDirection: "",
     padding: 25,
   },
   expiredCountdown: {
@@ -217,14 +215,17 @@ const styles = StyleSheet.create({
   },
   distance: {
     fontSize: 16,
+    marginLeft: 35,
     color: "white",
   },
   attempt: {
     fontSize: 16,
     color: "white",
+    marginLeft: 35,
   },
   countdown: {
     color: "white",
+    marginLeft: 35,
     fontSize: 16,
   },
   placeName: {
@@ -245,10 +246,10 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
   },
   userAvatar: {
-    width: 35,
-    height: 35,
+    width: 30,
+    height: 30,
     borderRadius: 50,
     borderWidth: 1,
-    borderColor: 'white',
+    borderColor: "white",
   },
 });

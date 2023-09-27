@@ -89,7 +89,7 @@ export default function SubmittedGuess() {
           )}
           km away.
         </Text>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={{
             marginTop: 20,
             backgroundColor: "#3FC1C0",
@@ -105,7 +105,7 @@ export default function SubmittedGuess() {
           }}
         >
           <Text style={{ color: "white" }}>Back</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <TouchableOpacity
           style={{
             marginTop: 20,
