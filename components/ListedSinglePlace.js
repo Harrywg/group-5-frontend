@@ -19,7 +19,6 @@ export default function ListedSinglePlace({
     }, 1000);
 
     getUsersByUsername(place.creator).then((body) => {
-      console.log(body)
       setUserAvatar(body.avatar_URL);
     }).catch((err) => {
       console.error(err)
@@ -45,7 +44,7 @@ export default function ListedSinglePlace({
       <View style={styles.itemContent}>
         <View style={styles.leftContent}>
           <Image style={styles.userAvatar} source={{uri: userAvatar}}/>
-          <Text style={styles.placeName}>{place.creator}</Text>
+          <Text style={styles.placeName}>{place.creator}'s place</Text>
           <Text style={styles.countdown}>
             {place.countdown === "Event has finished"
               ? "Event has finished"
