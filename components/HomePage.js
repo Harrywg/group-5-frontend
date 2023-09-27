@@ -22,7 +22,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
   const lon1Rad = (lon1 * Math.PI) / 180;
   const lat2Rad = (lat2 * Math.PI) / 180;
   const lon2Rad = (lon2 * Math.PI) / 180;
-
+ 
   const latDiff = lat2Rad - lat1Rad;
   const lonDiff = lon2Rad - lon1Rad;
 
