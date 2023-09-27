@@ -29,6 +29,7 @@ export default function LeaderBoard() {
     
   return (
     <View style={styles.container}>
+      <Text style={styles.header}>🏆    leaderboard    🏆</Text>
       {usersWithPoints.sort((a,b)=>b.points-a.points).slice(0,10).map((user, i) => {
         return (
           <View key={user._id} style={styles.leaderBoard}>
@@ -57,6 +58,7 @@ const styles = StyleSheet.create({
     paddingBottom:10,
     paddingHorizontal: 20,
     gap: 5, 
+
   },
   leaderBoard: {
     flex: 1,
@@ -92,4 +94,14 @@ const styles = StyleSheet.create({
     color: "#3FC1C0",
 
   },
+  header: {
+    fontSize: 25,
+    textAlign: 'center',
+    marginRight: 10,
+    fontWeight: "bold",
+    padding: 5,
+    borderWidth: 4,
+    borderColor: "#CCDCDC",
+    borderRadius:15,
+  }
 });
