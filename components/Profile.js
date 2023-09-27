@@ -9,7 +9,6 @@ import { deleteUser, updateUsers } from "../api";
 
 export default function Profile({ navigation }) {
   const { user } = useAuth();
-  console.log(user, "USER");
 
   const handleLogout = () => {
     navigation.navigate("Login");

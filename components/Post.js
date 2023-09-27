@@ -32,7 +32,6 @@ export default function PostPlace() {
   const currentLocation = location;
 
   const { user } = useAuth();
-  console.log(user.username,'USER')
 
   useEffect(() => {
     (async () => {
@@ -74,7 +73,6 @@ export default function PostPlace() {
   const handlePlaceSubmit = async () => {
     try {
       alert("Place submitted! 🎉");
-      console.log(image, "image");
       postPlace({
         placeName: `${user.username}'s Place`,
         coordinates: [location.latitude, location.longitude],
@@ -166,7 +164,6 @@ export default function PostPlace() {
       </View>
     );
   } else {
-    console.log(image, "image");
     return (
       <View style={formStyles.container}>
         <Text style={formStyles.title}>Post your place</Text>

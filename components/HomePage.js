@@ -55,7 +55,6 @@ export default function HomePage() {
   useEffect(() => console.log(currentLocation), [currentLocation]);
 
   const onPositionChange = (arg) => {
-    console.log("position changed");
     const { coords } = arg;
     const { latitude, longitude } = coords;
     const newRegion = { ...currentLocation, latitude, longitude };

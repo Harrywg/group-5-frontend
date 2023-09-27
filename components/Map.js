@@ -27,7 +27,6 @@ export default function Map(props) {
 
   useEffect(() => {
     if (specificLocation) return;
-    console.log("effect");
     Location.requestForegroundPermissionsAsync()
       .then(({ status }) => {
         if (status !== "granted") throw new Error("permission not granted");
@@ -56,12 +55,9 @@ export default function Map(props) {
     } else {
       setUserHasScrolled(false);
     }
-
-    console.log("Scrolled away:", userHasScrolled);
   };
 
   const returnToCurrentLocation = () => {
-    console.log("Return to current location button pressed");
     mapRef.current.animateToRegion(currentLocation, 500);
     setUserHasScrolled(false);
   };
@@ -122,11 +118,6 @@ export default function Map(props) {
         )}
 
         {currentLocation && (
-          // coordinate={currentLocation}
-          // anchor={currentLocation}
-          // image={user.avatar_URL}
-          // style={{ width: 500, height: 500 }}
-          // tracksViewChanges={false}
           <Marker coordinate={currentLocation} anchor={currentLocation}>
             <Image
               src={user.avatar_URL}
