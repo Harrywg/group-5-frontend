@@ -147,15 +147,15 @@ export default function PostPlace() {
               }}
             >
               <Button
-                title="Re-take"
+                title="  Re-take"
                 onPress={() => setImage(null)}
                 icon="retweet"
               />
-              <Button title="Submit" onPress={submitPicture} icon="check" />
+              <Button title="  Submit" onPress={submitPicture} icon="check" />
             </View>
           ) : (
             <Button
-              title="Take a picture"
+              title="  Take a picture"
               onPress={takePicture}
               icon="camera"
             />
