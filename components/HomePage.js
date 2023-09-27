@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
 import mainStyles from "../styles/mainStyles";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import BottomSheet, {
   useBottomSheetSpringConfigs,
   BottomSheetScrollView,
@@ -96,6 +96,23 @@ export default function HomePage() {
     };
     fetchPlaces();
   }, [currentLocation]);
+
+    useFocusEffect(
+      useCallback(() => {
+        const fetchPlaces = async () => {
+          try {
+            const fetchedPlaces = await getOrderedPlaces(
+              currentLocation.latitude,
+              currentLocation.longitude
+            );
+            setPlaces(fetchedPlaces);
+          } catch (error) {
+            console.error("Error fetching places:", error);
+          }
+        };
+        fetchPlaces();
+      }, [currentLocation])
+    );
 
   const goToSinglePlace = (selectedPlace, currentLocation) => {
     navigation.navigate("SinglePlace", {
