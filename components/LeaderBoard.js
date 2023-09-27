@@ -32,9 +32,12 @@ export default function LeaderBoard() {
       {usersWithPoints.sort((a,b)=>b.points-a.points).slice(0,10).map((user, i) => {
         return (
           <View key={user._id} style={styles.leaderBoard}>
+            <Text style={styles.number}>
+              {++i}
+            </Text>
             <Image src={user.avatar_URL} style={styles.avatar}/>
             <Text style={styles.name}>
-              {++i}.  {user.username}
+              {user.username}
             </Text>
             <Text style={styles.points} >
               {user.points}
@@ -53,14 +56,13 @@ const styles = StyleSheet.create({
     paddingTop: 75,
     paddingBottom:10,
     paddingHorizontal: 20,
-    gap:5
-    
+    gap: 5, 
   },
   leaderBoard: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    justifyContent:'space-between',
     borderWidth: 2,
     borderColor: "#3FC1C0",
     borderRadius: 15,
@@ -69,13 +71,19 @@ const styles = StyleSheet.create({
     height: 45,
     width: 45,
     backgroundColor: 'white',
-    marginRight: 20,
-    marginLeft:10,
+    marginLeft:40,
     borderRadius: 50,
+    position:'absolute'
   },
   name: {
     fontSize: 20,
-    flex: 1,
+   
+  },
+  number: {
+    fontSize: 20,
+    marginLeft: 10,
+    marginRight:50
+   
   },
   points: {
     fontWeight: "bold",
