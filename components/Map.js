@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import * as Location from "expo-location";
-import MapView, { Circle } from "react-native-maps";
-import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import MapView, { Circle, Marker } from "react-native-maps";
+import { View, StyleSheet, Text, TouchableOpacity, Image } from "react-native";
+import markerImage from "../assets/marker.png";
 import { getPlaces } from "../api";
+import { useAuth } from "../context";
 
 export default function Map(props) {
   const {
@@ -18,9 +20,10 @@ export default function Map(props) {
 
   const [places, setPlaces] = useState([]);
   const [userHasScrolled, setUserHasScrolled] = useState(false);
+  const { user } = useAuth();
 
   //just for logging any location changes
-  useEffect(() => console.log(currentLocation), [currentLocation]);
+  useEffect(() => console.log(user, "USER"), []);
 
   useEffect(() => {
     if (specificLocation) return;
@@ -119,14 +122,17 @@ export default function Map(props) {
         )}
 
         {currentLocation && (
-          <Circle
-            center={{
-              latitude: currentLocation.latitude,
-              longitude: currentLocation.longitude,
-            }}
-            radius={10}
-            fillColor="green"
-          />
+          // coordinate={currentLocation}
+          // anchor={currentLocation}
+          // image={user.avatar_URL}
+          // style={{ width: 500, height: 500 }}
+          // tracksViewChanges={false}
+          <Marker coordinate={currentLocation} anchor={currentLocation}>
+            <Image
+              src={user.avatar_URL}
+              style={styles.marker}
+            />
+          </Marker>
         )}
       </MapView>
     </View>
@@ -141,7 +147,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "white",
-    textAlign:"center",
+    textAlign: "center",
   },
   returnButton: {
     position: "absolute",
@@ -153,5 +159,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#3FC1C0",
     justifyContent: "center",
     borderRadius: 1000,
+  },
+  marker: {
+    width: 50,
+    height: 50,
+    borderRadius: 1000,
+    backgroundColor: "#3FC1C0",
+    borderColor: "white",
+    borderWidth: 2,
   },
 });
