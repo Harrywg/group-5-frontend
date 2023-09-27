@@ -29,7 +29,7 @@ export default function LeaderBoard() {
     
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>🏆    leaderboard    🏆</Text>
+      <Text style={styles.header}>🏆    Leaderboard    🏆</Text>
       {usersWithPoints.sort((a,b)=>b.points-a.points).slice(0,10).map((user, i) => {
         return (
           <View key={user._id} style={styles.leaderBoard}>
