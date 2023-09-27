@@ -1,14 +1,13 @@
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { Text, View, Image, TouchableOpacity } from "react-native";
 import mainStyles from "../styles/mainStyles";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { StyleSheet } from "react-native";
 import { useAuth } from "../context";
-import { deleteUser, updateUsers } from "../api";
+import { deleteUser, updateUsers, getUsersByUsername } from "../api";
 
 export default function Profile({ navigation }) {
-  const { user } = useAuth();
+  const { user, login } = useAuth();
   console.log(user, "USER");
 
   const handleLogout = () => {
@@ -34,6 +33,7 @@ export default function Profile({ navigation }) {
 
   const handleEdit = async () => {};
 
+
   return (
     <View style={styles.container}>
       <View style={styles.profile}>
@@ -41,24 +41,20 @@ export default function Profile({ navigation }) {
           src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
           style={styles.avatar}
         />
-        
+
         <Text style={styles.username}>{user.username}</Text>
         <Text>
           Joined {new Date(user.createdAt).toLocaleString().split(",")[0]}
         </Text>
         <Text>Gold: {user?.achievements?.gold}</Text>
-        <Text>
-          Silver: {user?.achievements?.silver}
-        </Text>
-        <Text>
-          Bronze: {user?.achievements?.bronze}
-        </Text>
-    
-        <TouchableOpacity style={styles.button} onPress={handleLogout} >
+        <Text>Silver: {user?.achievements?.silver}</Text>
+        <Text>Bronze: {user?.achievements?.bronze}</Text>
+
+        <TouchableOpacity style={styles.button} onPress={handleLogout}>
           <Text style={styles.buttonText}>Edit Profile</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={handleLogout} >
-            <Text style={styles.buttonText}>Log Out</Text>
+        <TouchableOpacity style={styles.button} onPress={handleLogout}>
+          <Text style={styles.buttonText}>Log Out</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={handleDelete}>
           <Text style={styles.buttonText}>Delete Account</Text>
@@ -91,12 +87,12 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontWeight: "bold",
-    color:'white'
+    color: "white",
   },
   button: {
     backgroundColor: "#3FC1C0",
     borderRadius: 1000,
     padding: 10,
     paddingHorizontal: 20,
-  }
+  },
 });

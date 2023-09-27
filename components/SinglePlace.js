@@ -1,4 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import {
   Text,
   View,
@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import mainStyles from "../styles/mainStyles";
 import { useRoute } from "@react-navigation/native";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Map from "./Map";
 import SubmittedGuess from "./SubmittedGuess";
 import * as Location from "expo-location";

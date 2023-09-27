@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../context";
 import { useRoute } from "@react-navigation/native";
-import { postGuess } from "../api";
+import { postGuess, getUsersByUsername } from "../api";
 
 function calculateDistance(lat1, lon1, lat2, lon2) {
   const earthRadius = 6371;
@@ -44,7 +44,7 @@ export default function SubmittedGuess() {
   const { userLocation, selectedPlace } = route.params;
   const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(true);
-  const { user } = useAuth();
+  const { user, login } = useAuth();
   const [submittedGuess, setSubmittedGuess] = useState(null);
 
   useEffect(() => {
@@ -59,6 +59,10 @@ export default function SubmittedGuess() {
         console.log(res.yourGuess);
         setIsLoading(false);
         setSubmittedGuess(res.yourGuess);
+        return getUsersByUsername(user.username);
+      })
+      .then((user) => {
+        login(user);
       })
       .catch(console.warn);
   }, []);
