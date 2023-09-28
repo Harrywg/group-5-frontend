@@ -103,6 +103,7 @@ export default function SinglePlace() {
             latitudeDelta: 0.02,
             longitudeDelta: 0.02,
           }}
+          currentLocation={currentLocation}
           placeCoords={selectedPlace.coordinates}
           selectedPlace={selectedPlace}
         />
@@ -235,5 +236,7 @@ const styles = StyleSheet.create({
   detailsText: {
     padding: 20,
     // width: "100%",
+    height: "85%",
+    position: "relative",
   },
 });
