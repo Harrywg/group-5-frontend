@@ -18,7 +18,6 @@ import { postPlace, getUsers } from "../api";
 import Map from "./Map";
 import { useAuth } from "../context";
 
-
 export default function PostPlace() {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
   const [image, setImage] = useState(null);
@@ -51,10 +50,9 @@ export default function PostPlace() {
     if (cameraRef) {
       try {
         const data = await cameraRef.current.takePictureAsync();
-        console.log(data);
         setImage(data.uri);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     }
   };
@@ -63,9 +61,8 @@ export default function PostPlace() {
     if (image) {
       try {
         setSubmittedImage(true);
-        console.log("saved successfully");
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     }
   };
@@ -82,7 +79,7 @@ export default function PostPlace() {
       setSubmittedImage(false);
       setImage(null);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -173,7 +170,11 @@ export default function PostPlace() {
           <Map style={formStyles.map} currentLocation={currentLocation} />
         </View>
         <TouchableOpacity style={formStyles.button} onPress={handlePlaceSubmit}>
-          <Button style={formStyles.button} onPress={handlePlaceSubmit} title="Post Place" />
+          <Button
+            style={formStyles.button}
+            onPress={handlePlaceSubmit}
+            title="Post Place"
+          />
         </TouchableOpacity>
       </View>
     );
@@ -280,10 +281,9 @@ const formStyles = StyleSheet.create({
     width: 250,
     borderRadius: 10,
     overflow: "hidden",
-
   },
   map: {
-    height: '100%',
-    width: '100%',
-  }
+    height: "100%",
+    width: "100%",
+  },
 });

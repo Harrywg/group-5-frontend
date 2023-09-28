@@ -52,7 +52,6 @@ export default function HomePage() {
   });
 
   //just for logging any location changes
-  useEffect(() => console.log(currentLocation), [currentLocation]);
 
   const onPositionChange = (arg) => {
     const { coords } = arg;

@@ -22,9 +22,6 @@ export default function Map(props) {
   const [userHasScrolled, setUserHasScrolled] = useState(false);
   const { user } = useAuth();
 
-  //just for logging any location changes
-  useEffect(() => console.log(user, "USER"), []);
-
   useEffect(() => {
     if (specificLocation) return;
     Location.requestForegroundPermissionsAsync()

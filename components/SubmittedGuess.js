@@ -48,15 +48,12 @@ export default function SubmittedGuess() {
   const [submittedGuess, setSubmittedGuess] = useState(null);
 
   useEffect(() => {
-    console.log({ selectedPlace });
-
     postGuess(selectedPlace._id, {
       username: user.username,
       avatarURL: user.avatarURL,
       guessCoordinates: userLocation,
     })
       .then((res) => {
-        console.log(res.yourGuess);
         setIsLoading(false);
         setSubmittedGuess(res.yourGuess);
         return getUsersByUsername(user.username);

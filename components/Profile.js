@@ -14,7 +14,6 @@ const medals = {
 
 export default function Profile({ navigation }) {
   const { user, login } = useAuth();
-  console.log(user, "USER");
   const handleLogout = () => {
     navigation.navigate("Login");
   };
@@ -23,10 +22,9 @@ export default function Profile({ navigation }) {
       const loggedInUser = user;
       const userDeleted = await deleteUser(loggedInUser._id);
       if (userDeleted) {
-        console.log("User deleted");
         navigation.navigate("Login");
       } else {
-        console.log("User deletion failed");
+        console.error("User deletion failed");
       }
     } catch (error) {
       console.error("Error deleting user", error);
