@@ -19,6 +19,7 @@ const medals = {
   bronze: require("./img/bronze-medal.png"),
   silver: require("./img/silver-medal.png"),
   gold: require("./img/gold-medal.png"),
+  none: require("./img/none-medal.png"),
 };
 
 export default function SinglePlace() {
@@ -176,8 +177,8 @@ export default function SinglePlace() {
                     {guess.username}
                   </Text>
                   <Image
-                    source={medals[guess.medal]}
-                    style={{ height: 15, width: 10 }}
+                    source={guess.medal ? medals[guess.medal] : medals.none}
+                    style={{ height: 15, width: 15 }}
                   />
                 </View>
               );

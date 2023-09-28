@@ -62,15 +62,16 @@ export default function ListedSinglePlace({
               {place.creator}'s place
             </Text>
           </View>
+          <Text
+            numberOfLines={1}
+            style={styles.distance}
+          >{`${distance} km`}</Text>
           <Text numberOfLines={1} style={styles.countdown}>
             {place.countdown === "Event has finished"
               ? "Event has finished"
               : `${timeLeft}`}
           </Text>
-          <Text
-            numberOfLines={1}
-            style={styles.distance}
-          >{`${distance} km`}</Text>
+
           <Text numberOfLines={1} style={styles.attempt}>
             {place.guesses.length} attempts
           </Text>
