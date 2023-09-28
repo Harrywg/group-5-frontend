@@ -80,6 +80,58 @@ export default function HomePage() {
     }
   }
 
+  const sortPlaces = (places) => {
+    const sortedPlaces = places.sort((a, b) => {
+      if (
+        calculateDistance(
+          currentLocation.latitude,
+          currentLocation.longitude,
+          a.coordinates[0],
+          a.coordinates[1]
+        ) >
+        calculateDistance(
+          currentLocation.latitude,
+          currentLocation.longitude,
+          b.coordinates[0],
+          b.coordinates[1]
+        )
+      ) {
+        return 1;
+      }
+      if (
+        calculateDistance(
+          currentLocation.latitude,
+          currentLocation.longitude,
+          a.coordinates[0],
+          a.coordinates[1]
+        ) <
+        calculateDistance(
+          currentLocation.latitude,
+          currentLocation.longitude,
+          b.coordinates[0],
+          b.coordinates[1]
+        )
+      ) {
+        return -1;
+      }
+      return 0;
+    });
+
+    return sortedPlaces.map((place, i) => {
+      return (
+        <ListedSinglePlace
+          key={place._id}
+          place={place}
+          styles={styles}
+          calculateDistance={calculateDistance}
+          currentLocation={currentLocation}
+          calculateCountdown={calculateCountdown}
+          goToSinglePlace={goToSinglePlace}
+        />
+      );
+    });
+  };
+
   useEffect(() => {
     const fetchPlaces = async () => {
       try {
@@ -87,6 +139,7 @@ export default function HomePage() {
           currentLocation.latitude,
           currentLocation.longitude
         );
+
         setPlaces(fetchedPlaces);
       } catch (error) {
         console.error("Error fetching places:", error);
@@ -148,19 +201,7 @@ export default function HomePage() {
           <Text style={styles.text}>Swipe up for places 🎉</Text>
         </View>
         <BottomSheetScrollView contentContainerStyle={styles.contentContainer}>
-          {places.map((place, i) => {
-            return (
-              <ListedSinglePlace
-                key={place._id}
-                place={place}
-                styles={styles}
-                calculateDistance={calculateDistance}
-                currentLocation={currentLocation}
-                calculateCountdown={calculateCountdown}
-                goToSinglePlace={goToSinglePlace}
-              />
-            );
-          })}
+          {sortPlaces(places)}
         </BottomSheetScrollView>
       </BottomSheet>
     </View>

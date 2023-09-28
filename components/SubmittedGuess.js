@@ -68,7 +68,7 @@ export default function SubmittedGuess() {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <Image
-          src={medals[submittedGuess?.medal] || ""}
+          source={medals[submittedGuess?.medal] || ""}
           style={{ height: 30, width: 30 }}
         ></Image>
         <Text style={{ fontSize: 25, fontWeight: 800 }}>

@@ -139,12 +139,12 @@ export default function SinglePlace() {
           </Text>
           <Text>{timeLeft}</Text>
           <Text style={{ marginBottom: 5 }}>
-            Guesses : {selectedPlace.guesses.length}
+            Attempts : {selectedPlace.guesses.length}
           </Text>
           <ScrollView
             style={{
               marginTop: 5,
-              width: "100%",
+              width: "135%",
               flex: 1,
             }}
           >
@@ -155,11 +155,15 @@ export default function SinglePlace() {
                   style={{
                     borderStyle: "solid",
                     borderWidth: 1,
+                    borderRadius: 10,
+                    borderColor: "#3FC1C0",
                     padding: 10,
+                    width: "100%",
                     marginVertical: 5,
                     flex: 1,
                     flexDirection: "row",
                     justifyContent: "space-between",
+                    alignItems: "center",
                     maxWidth: 120,
                   }}
                 >
@@ -229,5 +233,6 @@ const styles = StyleSheet.create({
   },
   detailsText: {
     padding: 20,
+    // width: "100%",
   },
 });
