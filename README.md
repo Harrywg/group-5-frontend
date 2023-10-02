@@ -11,13 +11,14 @@ Please find more information about our back-end API by visiting the repo for it 
 
 # The Team
 
-We are a team of five enthusiastic software engineers, and we developed `Picture-This-Place` as our final project during the `July 2023` cohort of <a href="https://northcoders.com/" target="_blank">Northcoders</a>, a software engineering bootcamp that enables career-changers to become developers in 13 weeks.
+<div align="center">
+  <img src="./assets/1696250601508.jpeg" width="100%" alt="Photo of the 5 team members" />
 
-- <a href="https://github.com/Jay7806" target="_blank">James Smith</a>
-- <a href="https://github.com/Harrywg" target="_blank">Harry Ward-Gray</a>
-- <a href="https://github.com/Lawler45" target="_blank">Lewis Lawler</a>
-- <a href="https://github.com/A-E-Harding" target="_blank">Alice Harding</a>
-- <a href="https://github.com/jcainuk" target="_blank">Jonathan Cain</a>
+</div>
+
+We are a team of five enthusiastic software engineers: <a href="https://github.com/Jay7806" target="_blank">James Smith</a>, <a href="https://github.com/Harrywg" target="_blank">Harry Ward-Gray</a>, <a href="https://github.com/Lawler45" target="_blank">Lewis Lawler</a>, <a href="https://github.com/A-E-Harding" target="_blank">Alice Harding</a> and <a href="https://github.com/jcainuk" target="_blank">Jonathan Cain</a>.
+
+We developed `Picture-This-Place` as our final project during the `July 2023` cohort of <a href="https://northcoders.com/" target="_blank">Northcoders</a>, a software engineering bootcamp that enables career-changers to become developers in 13 weeks.
 
 # Table of Contents
 
