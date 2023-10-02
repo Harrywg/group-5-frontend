@@ -65,7 +65,17 @@ Please find a demonstration video of the full project here:
 
 [Back to the Top](#table-of-contents)
 
-Screenshots to appear here....
+<div align="center">
+  <img src="./assets/1696250601092.jpeg" width="200" alt="Screenshot 1" />
+  <img src="./assets//1696250601473.jpeg" width="200" alt="Screenshot 2" />
+  <img src="./assets/1696250601592.jpeg" width="200" alt="Screenshot 3" />
+</div>
+
+<div align="center">
+  <img src="./assets//1696250602033.jpeg" width="200" alt="Screenshot 4" />
+  <img src="./assets/1696250602991.jpeg" width="200" alt="Screenshot 5" />
+  <img src="./assets/1696250603006.jpeg" width="200" alt="Screenshot 6" />
+</div>
 
 # Technologies Used
 
