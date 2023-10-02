@@ -58,7 +58,8 @@ We are a team of five enthusiastic software engineers, and we developed `Picture
 
 [Back to the Top](#table-of-contents)
 
-Link to demo video TBA...
+Please find a demonstration video of the full project here:
+<a href="https://www.youtube.com/watch?v=CL6b3KgObPg" target="_blank">Demo Video</a>
 
 # Screenshots
 
